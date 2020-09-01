@@ -1,3 +1,5 @@
 java-main-test/
 assignment_one
-
+lab-1/assignment_two/out*
+lab-1/assignment_two/.idea/*
+*.iml
