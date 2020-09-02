@@ -118,8 +118,8 @@ public class ReverseInput {
 
                 // redirect STDOUT
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                PrintStream fakeOut = new PrintStream(outputStream);
-                System.setOut(fakeOut);
+                PrintStream newOut = new PrintStream(outputStream);
+                System.setOut(newOut);
 
                 // redirect STDIN and load with each prepared test input
                 for(int i = 0; i < test_input.length; i++){
