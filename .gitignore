@@ -1,3 +1,5 @@
 *.iml
 lab-1/assignment_two/out/*
 lab-1/assignment_two/.idea/*
+.vscode
+lab-1/assignment_one/reverse_input
