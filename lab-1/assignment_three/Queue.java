@@ -6,9 +6,10 @@
     Inspiration taken from: https://algs4.cs.princeton.edu/13stacks/Queue.java.html
  */
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Queue<T> {
+public class Queue<T> implements Iterable<T> {
     Node first;
     Node last;
     int size;
@@ -96,4 +97,34 @@ public class Queue<T> {
     public boolean isEmpty(){
         return first == null  &&  last == null;
     }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new QueueIterator();
+    }
+    private class QueueIterator implements Iterator<T>{
+        Node next;
+
+        QueueIterator(){
+            next = first;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return next != null;
+        }
+
+        @Override
+        public T next() {
+            Node current = next;
+            if (next.next == first){
+                next = null;
+            } else {
+                next = next.next;
+            }
+            return current.item;
+        }
+    }
+
+
 }
