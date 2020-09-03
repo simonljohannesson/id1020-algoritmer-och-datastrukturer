@@ -172,7 +172,6 @@ public class Queue<T> implements Iterable<T> {
         // size should be 0 for empty list
         int queueSize = strQueue.size();
         assert queueSize == 0;
-
         // make sure that Exception is thrown when dequeue called on empty queue
         try{
             strQueue.dequeue();
@@ -211,10 +210,9 @@ public class Queue<T> implements Iterable<T> {
 
         // test iteration
         Integer[] intList = {4, 5, 7, 1, 9};
-
         Queue<Integer> integerQueue = new Queue<>();
-        for (Integer integer : integerQueue){
-            integerQueue.enqueue(integer);
+        for (int i = 0; i < intList.length; i++){
+            integerQueue.enqueue(intList[i]);
         }
         int index = 0;
         for (Integer integer : integerQueue){
@@ -233,6 +231,14 @@ public class Queue<T> implements Iterable<T> {
         } catch (NoSuchElementException e){
             assert true;
         }
+
+        // test toString function
+        Queue<String> toStringQueue = new Queue<>();
+        assert toStringQueue.toString().equals("[]");
+        toStringQueue.enqueue("hello");
+        toStringQueue.enqueue("my");
+        toStringQueue.enqueue("friend");
+        assert toStringQueue.toString().equals("[hello, my, friend]");
 
 
         if(assertionsEnabled){
