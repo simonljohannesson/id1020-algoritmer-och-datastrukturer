@@ -10,9 +10,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Queue<T> implements Iterable<T> {
-    Node first;
-    Node last;
-    int size;
+    private Node first;
+    private Node last;
+    private int size;
 
     /**
      * Class that represent nodes in a double linked list.
@@ -116,6 +116,7 @@ public class Queue<T> implements Iterable<T> {
 
         @Override
         public T next() {
+            if (next == null) throw new NoSuchElementException();
             Node current = next;
             if (next.next == first){
                 next = null;
