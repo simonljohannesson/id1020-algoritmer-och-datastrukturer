@@ -3,6 +3,7 @@
  *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
  *  Created:        2020-09-01
  *  Updated:
+ *  Solves problem: Lab 1, assignment 2.
  *  Usage:          For normal operation, run program without any arguments.
  *                  When prompted input data, the data will print it back in reverse.
  *                  For testing, run program with '-T' as an argument.

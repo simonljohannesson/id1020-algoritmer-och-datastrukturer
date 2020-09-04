@@ -3,16 +3,10 @@
  *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
  *  Created:        2020-09-03
  *  Updated:
+ *  Solves problem: Lab 1, assignment 3.
  *  Usage:          For normal operation, import Queue class and use with its API.
  *                  For testing, run main method with the class compiled with assertions enabled.
  *  Based on:       Inspiration taken from: https://algs4.cs.princeton.edu/13stacks/Queue.java.html
- */
-/*
-    Exercise:
-    Implement a generic iterable FIFO-queue based on a double linked circular list.
-    You should print the content of the list after each insertion/deletion of an element.
-
-    Inspiration taken from: https://algs4.cs.princeton.edu/13stacks/Queue.java.html
  */
 
 import java.util.Iterator;
@@ -20,7 +14,6 @@ import java.util.NoSuchElementException;
 
 public class Queue<T> implements Iterable<T> {
     private Node first;
-    private Node last;
     private int size;
 
     /**
@@ -33,7 +26,7 @@ public class Queue<T> implements Iterable<T> {
     }
 
     public Queue(){
-        first = last = null;
+        first = null;
         size = 0;
     }
 
@@ -45,15 +38,14 @@ public class Queue<T> implements Iterable<T> {
     public void enqueue(T item){
         Node newNode = new Node();
         newNode.item = item;
-        if (first == null  &&  last == null){
-            first = last = newNode;
+        if (first == null){
+            first = newNode;
             newNode.next = newNode.previous = newNode;
         }else{
-            newNode.previous = last;
+            newNode.previous = first.previous;
             newNode.next = first;
+            first.previous.next = newNode;
             first.previous = newNode;
-            last.next = newNode;
-            last = newNode;
         }
         size++;
         System.out.println(this);
@@ -68,24 +60,23 @@ public class Queue<T> implements Iterable<T> {
         Node dequeueNode;
 
         // queue empty case
-        if (first == null  && last == null){
+        if(first == null){
             throw new NoSuchElementException("Queue underflow.");
         }
         dequeueNode = first;
 
         // one element in queue case
-        if (first == last){
-            first = last = null;
+        if (first == first.previous){
+            first = null;
         // more than one element in queue case
         }else{
+            first.previous.next = first.next;
+            first.next.previous = first.previous;
             first = first.next;
-            last.next = first;
-            first.previous = last;
         }
         size--;
         // remove loitering references              is this really necessary?
-        dequeueNode.previous = null;
-        dequeueNode.next = null;
+        dequeueNode.previous = dequeueNode.next = null;
 
         System.out.println(this);
         return dequeueNode.item;
@@ -106,7 +97,7 @@ public class Queue<T> implements Iterable<T> {
      * @return true if queue is empty, false if queue is not empty
      */
     public boolean isEmpty(){
-        return first == null  &&  last == null;
+        return first == null;
     }
 
     @Override
@@ -139,16 +130,17 @@ public class Queue<T> implements Iterable<T> {
     }
     @Override
     public String toString(){
-        StringBuilder string = new StringBuilder("[");
+        StringBuilder string = new StringBuilder("{");
         for (T item : this){
+            string.append("[");
             string.append(item.toString());
-            string.append(", ");
+            string.append("], ");
         }
         if (size > 0){
             string.deleteCharAt(string.length() - 1);
             string.deleteCharAt(string.length() - 1);
         }
-        string.append("]");
+        string.append("}");
         return string.toString();
     }
 
@@ -234,11 +226,11 @@ public class Queue<T> implements Iterable<T> {
 
         // test toString function
         Queue<String> toStringQueue = new Queue<>();
-        assert toStringQueue.toString().equals("[]");
+        assert toStringQueue.toString().equals("{}");
         toStringQueue.enqueue("hello");
         toStringQueue.enqueue("my");
         toStringQueue.enqueue("friend");
-        assert toStringQueue.toString().equals("[hello, my, friend]");
+        assert toStringQueue.toString().equals("{[hello], [my], [friend]}");
 
 
         if(assertionsEnabled){
