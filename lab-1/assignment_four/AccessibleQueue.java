@@ -30,11 +30,24 @@ public class AccessibleQueue<T> implements Iterable<T> {
         size = 0;
     }
 
+    /**
+     * Check if queue is empty.
+     *
+     * @return true if empty, false if not empty
+     */
+    public boolean isEmpty(){
+        return (first == null);
+    }
+
+    /**
+     * Removes node from queue.
+     *
+     * Node that should be removed must exist in the queue.
+     * Can remove and update first item in the queue.
+     * @param nodeToRemove node that should be removed
+     * @return node that was removed
+     */
     private Node removeNode(Node nodeToRemove){
-        // empty list (first used as argument when list empty)
-        if (nodeToRemove == null){
-           throw new NoSuchElementException("Queue underflow.");
-        }
         // one element in list
         if (nodeToRemove == nodeToRemove.next){
             first = null;
@@ -74,34 +87,66 @@ public class AccessibleQueue<T> implements Iterable<T> {
         size++;
     }
 
+    /**
+     * Removes item from the end of the queue.
+     *
+     * @return item at the end of the queue
+     */
     public T dequeueLast(){
-        Node last = first;
-        if (first != null) last = first.previous;
-        Node node = removeNode(last);
+        if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+        Node node = removeNode(first.previous);
+
         System.out.println(this.toString());
         return node.item;
     }
+
+    /**
+     * Removes item from the beginning of the queue.
+     *
+     * @return item at the beginning of the queue
+     */
     public T dequeueFirst(){
+        if (isEmpty()) throw new NoSuchElementException("Queue underflow");
         Node node = removeNode(first);
         System.out.println(this.toString());
         return node.item;
     }
+
+    /**
+     * Add item to the end of the queue.
+     *
+     * @param item item to add to the queue
+     */
     public void enqueueLast(T item){
-        Node newNode = new Node();
-        newNode.item = item;
-        Node after = first;
-        if (first != null) after = first.previous;
-        addNodeAfter(after, newNode);
+        enqueueLast(item, true);
 
-        System.out.println(this.toString());
     }
-    public void enqueueFirst(T item){
+
+    /**
+     * Add item to end of queue.
+     *
+     * @param item item to be added
+     * @param enablePrint
+     */
+    private void enqueueLast(T item, boolean enablePrint){
         Node newNode = new Node();
         newNode.item = item;
         Node after = first;
         if (first != null) after = first.previous;
         addNodeAfter(after, newNode);
 
+        if(enablePrint) System.out.println(this.toString());
+    }
+
+    /**
+     * Add item to the beginning of the queue.
+     *
+     * @param item item to add to queue
+     */
+    public void enqueueFirst(T item){
+        enqueueLast(item, false);
+
+        // update head to point to the new first item
         first = first.previous;
         System.out.println(this.toString());
     }
@@ -154,7 +199,7 @@ public class AccessibleQueue<T> implements Iterable<T> {
         }
     }
     public static void main(String[] args){
-        System.out.println("Running tests on class Queue");
+        System.out.println("Running tests on class AccessibleQueue");
 
         boolean assertionsEnabled = false;
         try{
@@ -227,6 +272,17 @@ public class AccessibleQueue<T> implements Iterable<T> {
             assert item.equals(expected[index]);
             index++;
         }
+
+        try{
+            Iterator<String> iter = q2.iterator();
+            for(int i = 0; i < 5; i++){
+               iter.next();
+            }
+            assert false;
+        } catch (NoSuchElementException e){
+            assert true;
+        }
+
         assert q2.toString().equals("{[a], [b], [c], [d]}");
 
     if (assertionsEnabled){
