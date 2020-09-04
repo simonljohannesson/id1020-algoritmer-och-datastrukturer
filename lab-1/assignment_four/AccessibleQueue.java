@@ -126,7 +126,7 @@ public class AccessibleQueue<T> implements Iterable<T> {
      * Add item to end of queue.
      *
      * @param item item to be added
-     * @param enablePrint
+     * @param enablePrint true to print queue, false to not print
      */
     private void enqueueLast(T item, boolean enablePrint){
         Node newNode = new Node();
@@ -150,6 +150,11 @@ public class AccessibleQueue<T> implements Iterable<T> {
         first = first.previous;
         System.out.println(this.toString());
     }
+
+    /**
+     * Size of queue.
+     * @return the size of the queue
+     */
     public int size(){
         return size;
     }
