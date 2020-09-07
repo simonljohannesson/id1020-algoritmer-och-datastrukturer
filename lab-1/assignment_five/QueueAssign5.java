@@ -257,12 +257,68 @@ public class QueueAssign5<T> implements Iterable<T> {
         }
 
 
+        QueueAssign5<String> q = new QueueAssign5<>();
+        System.out.println(q);
+
+        q.enqueueLast("H");
+        System.out.println(q);
+        q.enqueueLast("J");
+        System.out.println(q);
+        q.enqueueFirst("D");
+        System.out.println(q);
+        q.enqueueFirst("B");
+        System.out.println(q);
+        q.enqueueLast("Z");
+        System.out.println(q);
+        q.enqueueFirst("A");
+        System.out.println(q);
+
+        String result;
+
+        result = q.dequeItemAtIndex(0);
+        assert result.equals("A");
+        System.out.println(q);
+
+        result = q.dequeItemAtIndex(4);
+        assert result.equals("Z");
+        System.out.println(q);
+
+        result = q.dequeItemAtIndex(2);
+        assert result.equals("H");
+        System.out.println(q);
+
+        result = q.dequeItemAtIndex(1);
+        assert result.equals("D");
+        System.out.println(q);
+
+        try{
+            q.dequeItemAtIndex(10);
+            assert false;
+        } catch (IndexOutOfBoundsException e){
+            assert true;
+        }
+        try{
+            q.dequeItemAtIndex(-1);
+            assert false;
+        } catch (IndexOutOfBoundsException e){
+            assert true;
+        }
+
+        result = q.dequeItemAtIndex(0);
+        assert result.equals("B");
+        System.out.println(q);
 
 
+        result = q.dequeItemAtIndex(0);
+        assert result.equals("J");
+        System.out.println(q);
 
-
-
-
+        try{
+            q.dequeItemAtIndex(0);
+            assert false;
+        }catch (IndexOutOfBoundsException e){
+            assert true;
+        }
 
         if (assertionsEnabled){
             System.out.println("TESTS SUCCESSFUL!!!");
