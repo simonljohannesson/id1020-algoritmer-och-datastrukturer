@@ -16,7 +16,7 @@ import java.util.NoSuchElementException;
  * Implemented as a linked list that keeps track of the tail.
  * @param <T>
  */
-public class LinkedStack<T> implements Stack <T>{
+public class LinkedStackAssign2<T> implements Stack <T>{
     private int size;
     private Node tail;
 
@@ -28,27 +28,35 @@ public class LinkedStack<T> implements Stack <T>{
         Node next;
     }
 
-    public LinkedStack(){
+    public LinkedStackAssign2(){
         size = 0;
         tail = null;
     }
 
     @Override
     public void push(T item) {
+        // create new node with item
         Node newNode = new Node();
         newNode.item = item;
+        // set item that tail points to as the next item of new node
         newNode.next = tail;
+        // move tail to the new node
         tail = newNode;
         size++;
     }
 
     @Override
     public T pop() {
+        // make sure list no empty
         if (tail == null) throw new NoSuchElementException("Stack underflow.");
+        // store reference to node/item that will be popped
         Node item = tail;
+        // update tail to point to next (in queue)
         tail = tail.next;
+        // value not used set to null
         item.next = null;
         size--;
+        // return item of the node that was popped/removed
         return item.item;
     }
 
@@ -72,7 +80,7 @@ public class LinkedStack<T> implements Stack <T>{
         Object e = new Object();
 
         // create stack
-        LinkedStack<Object> stack = new LinkedStack<>();
+        LinkedStackAssign2<Object> stack = new LinkedStackAssign2<>();
 
         // add items to stack
         stack.push(a);

@@ -7,12 +7,15 @@
  *  Usage:          For normal operation, import Queue class and use with its API.
  *                  For testing, run main method with the class compiled with assertions enabled.
  *  Based on:       Inspiration taken from: https://algs4.cs.princeton.edu/13stacks/Queue.java.html
+ *  TODO: change iterator name
+ *  TODO: remove all prints except tests
  */
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class AccessibleQueue<T> implements Iterable<T> {
+@SuppressWarnings("DuplicatedCode")
+public class QueueAssign4<T> implements Iterable<T> {
     private Node first;
     private int size;
 
@@ -25,7 +28,7 @@ public class AccessibleQueue<T> implements Iterable<T> {
         Node next;
     }
 
-    public AccessibleQueue(){
+    public QueueAssign4(){
         first = null;
         size = 0;
     }
@@ -53,12 +56,15 @@ public class AccessibleQueue<T> implements Iterable<T> {
             first = null;
         // multiple elements in list
         } else {
+            // next of node before node to remove -> node after node to remove
             nodeToRemove.previous.next = nodeToRemove.next;
+            // previous of node after node to remove -> node before node to remove
             nodeToRemove.next.previous = nodeToRemove.previous;
         }
         // multiple elements in list remove first
         if (nodeToRemove == first){
-           first = first.next;
+            // move first to next in queue
+            first = first.next;
         }
         size--;
         // remove loitering references and return
@@ -77,10 +83,13 @@ public class AccessibleQueue<T> implements Iterable<T> {
         // empty list (first used as argument when list empty)
         if (node == null){
             first = nodeToAdd.next = nodeToAdd.previous = nodeToAdd;
+
+        // any non empty list case
         } else {
-            // any non empty list case
+            // add next and previous for nodeToAdd
             nodeToAdd.previous = node;
             nodeToAdd.next = node.next;
+            // make nodes around nodeToAdd point to nodeToAdd
             node.next.previous = nodeToAdd;
             node.next = nodeToAdd;
         }
@@ -96,7 +105,6 @@ public class AccessibleQueue<T> implements Iterable<T> {
         if (isEmpty()) throw new NoSuchElementException("Queue underflow");
         Node node = removeNode(first.previous);
 
-        System.out.println(this.toString());
         return node.item;
     }
 
@@ -108,34 +116,20 @@ public class AccessibleQueue<T> implements Iterable<T> {
     public T dequeueFirst(){
         if (isEmpty()) throw new NoSuchElementException("Queue underflow");
         Node node = removeNode(first);
-        System.out.println(this.toString());
         return node.item;
-    }
-
-    /**
-     * Add item to the end of the queue.
-     *
-     * @param item item to add to the queue
-     */
-    public void enqueueLast(T item){
-        enqueueLast(item, true);
-
     }
 
     /**
      * Add item to end of queue.
      *
      * @param item item to be added
-     * @param enablePrint true to print queue, false to not print
      */
-    private void enqueueLast(T item, boolean enablePrint){
+    public void enqueueLast(T item){
         Node newNode = new Node();
         newNode.item = item;
         Node after = first;
         if (first != null) after = first.previous;
         addNodeAfter(after, newNode);
-
-        if(enablePrint) System.out.println(this.toString());
     }
 
     /**
@@ -144,11 +138,10 @@ public class AccessibleQueue<T> implements Iterable<T> {
      * @param item item to add to queue
      */
     public void enqueueFirst(T item){
-        enqueueLast(item, false);
+        enqueueLast(item);
 
         // update head to point to the new first item
         first = first.previous;
-        System.out.println(this.toString());
     }
 
     /**
@@ -204,7 +197,7 @@ public class AccessibleQueue<T> implements Iterable<T> {
         }
     }
     public static void main(String[] args){
-        System.out.println("Running tests on class AccessibleQueue");
+        System.out.println("Running tests on class QueueAssign4");
 
         boolean assertionsEnabled = false;
         try{
@@ -218,7 +211,7 @@ public class AccessibleQueue<T> implements Iterable<T> {
         }
         String result;
 
-        AccessibleQueue<String> q = new AccessibleQueue<>();
+        QueueAssign4<String> q = new QueueAssign4<>();
         q.enqueueLast("a");
         q.enqueueLast("c");
         q.enqueueFirst("1");
@@ -240,7 +233,7 @@ public class AccessibleQueue<T> implements Iterable<T> {
 
 
 
-        AccessibleQueue<String> q1 = new AccessibleQueue<>();
+        QueueAssign4<String> q1 = new QueueAssign4<>();
         q1.enqueueFirst("a");
         q1.enqueueFirst("b");
         q1.enqueueFirst("c");
@@ -265,7 +258,7 @@ public class AccessibleQueue<T> implements Iterable<T> {
             assert true;
         }
 
-        AccessibleQueue<String> q2 = new AccessibleQueue<>();
+        QueueAssign4<String> q2 = new QueueAssign4<>();
         q2.enqueueLast("a");
         q2.enqueueLast("b");
         q2.enqueueLast("c");

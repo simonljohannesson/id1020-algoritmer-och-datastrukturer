@@ -7,12 +7,13 @@
  *  Usage:          For normal operation, import Queue class and use with its API.
  *                  For testing, run main method with the class compiled with assertions enabled.
  *  Based on:       Inspiration taken from: https://algs4.cs.princeton.edu/13stacks/Queue.java.html
+ *  TODO: remove all prints except tests
  */
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Queue<T> implements Iterable<T> {
+public class QueueAssign3<T> implements Iterable<T> {
     private Node first;
     private int size;
 
@@ -25,7 +26,7 @@ public class Queue<T> implements Iterable<T> {
         Node next;
     }
 
-    public Queue(){
+    public QueueAssign3(){
         first = null;
         size = 0;
     }
@@ -36,15 +37,24 @@ public class Queue<T> implements Iterable<T> {
      * @param item item to add to queue.
      */
     public void enqueue(T item){
+        // create new node containing the item
         Node newNode = new Node();
         newNode.item = item;
+        // queue empty case
         if (first == null){
+            // replace null with the new node
             first = newNode;
+            // since list empty next and previous will point to the new node
             newNode.next = newNode.previous = newNode;
+        // queue not empty
         }else{
+            // new node previous points to last element in list
             newNode.previous = first.previous;
+            // new node next points to first element in list
             newNode.next = first;
+            // last element in list (next) points to new node
             first.previous.next = newNode;
+            // first element in list (previous) points to new node
             first.previous = newNode;
         }
         size++;
@@ -57,25 +67,28 @@ public class Queue<T> implements Iterable<T> {
      * @return first item in the queue
      */
     public T dequeue(){
-        Node dequeueNode;
-
         // queue empty case
         if(first == null){
             throw new NoSuchElementException("Queue underflow.");
         }
-        dequeueNode = first;
+
+        // store ref to node to dequeue
+        Node dequeueNode = first;
 
         // one element in queue case
-        if (first == first.previous){
+        if (first == first.previous){ // points to itself
             first = null;
         // more than one element in queue case
         }else{
+            // last element next point to second element in queue
             first.previous.next = first.next;
+            // second element in queue (previous) point to last element in queue
             first.next.previous = first.previous;
+            // first point to second element in queue (making it the new first element in queue)
             first = first.next;
         }
         size--;
-        // remove loitering references              is this really necessary?
+        // remove loitering references
         dequeueNode.previous = dequeueNode.next = null;
 
         System.out.println(this);
@@ -159,7 +172,7 @@ public class Queue<T> implements Iterable<T> {
             }
         }
 
-        Queue<String> strQueue = new Queue<>();
+        QueueAssign3<String> strQueue = new QueueAssign3<>();
 
         // size should be 0 for empty list
         int queueSize = strQueue.size();
@@ -202,7 +215,7 @@ public class Queue<T> implements Iterable<T> {
 
         // test iteration
         Integer[] intList = {4, 5, 7, 1, 9};
-        Queue<Integer> integerQueue = new Queue<>();
+        QueueAssign3<Integer> integerQueue = new QueueAssign3<>();
         for (int i = 0; i < intList.length; i++){
             integerQueue.enqueue(intList[i]);
         }
@@ -225,7 +238,7 @@ public class Queue<T> implements Iterable<T> {
         }
 
         // test toString function
-        Queue<String> toStringQueue = new Queue<>();
+        QueueAssign3<String> toStringQueue = new QueueAssign3<>();
         assert toStringQueue.toString().equals("{}");
         toStringQueue.enqueue("hello");
         toStringQueue.enqueue("my");

@@ -50,7 +50,7 @@ class IterativeReverseInputPrinter implements ReverseInputPrinter{
     @Override
     public void print() throws IOException{
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        LinkedStack<Character> input = new LinkedStack<>();
+        LinkedStackAssign2<Character> input = new LinkedStackAssign2<>();
 
         char character;
         while ((character = (char) reader.read()) != '\n') {
@@ -65,7 +65,7 @@ class IterativeReverseInputPrinter implements ReverseInputPrinter{
 /**
  * Class that has methods that takes input from a user and reverses it.
  */
-public class ReverseInput {
+public class ReverseInputAssign2 {
     public static void main(String[] args) {
        if(hasTestFlag(args)) {
             run_test(new RecursiveReverseInputPrinter());
