@@ -125,7 +125,7 @@ public class OrderedQueueAssign6<T extends Comparable<T>> implements Iterable<T>
      *
      * @param item item to be added
      */
-    public void enqueueLast(T item){
+    private void enqueueLast(T item){
         Node newNode = new Node();
         newNode.item = item;
         Node after = first;
@@ -138,13 +138,19 @@ public class OrderedQueueAssign6<T extends Comparable<T>> implements Iterable<T>
      *
      * @param item item to add to queue
      */
-    public void enqueueFirst(T item){
+    private void enqueueFirst(T item){
         enqueueLast(item);
 
         // update head to point to the new first item
         first = first.previous;
     }
 
+    /**
+     * Check if first item is less than second item.
+     * @param first
+     * @param second
+     * @return true if first less than second, else false
+     */
     private boolean isLessThan(T first, T second){
         return first.compareTo(second) < 0;
     }
@@ -176,6 +182,11 @@ public class OrderedQueueAssign6<T extends Comparable<T>> implements Iterable<T>
         }
     }
 
+    /**
+     * Dequeues item located at index specified.
+     * @param index of item to dequeue
+     * @return dequeued item
+     */
     public T dequeItemAtIndex(int index){
         if (index >= size  || index < 0){
             throw new IndexOutOfBoundsException();

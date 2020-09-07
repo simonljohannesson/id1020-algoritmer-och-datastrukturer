@@ -142,7 +142,11 @@ public class QueueAssign5<T> implements Iterable<T> {
         // update head to point to the new first item
         first = first.previous;
     }
-
+    /**
+     * Dequeues item located at index specified.
+     * @param index of item to dequeue
+     * @return dequeued item
+     */
     public T dequeItemAtIndex(int index){
         if (index >= size  || index < 0){
             throw new IndexOutOfBoundsException();
