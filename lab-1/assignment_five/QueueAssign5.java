@@ -4,7 +4,7 @@
  *  Created:        2020-09-04
  *  Updated:
  *  Solves problem: Lab 1, assignment 5.
- *  Usage:          For normal operation, import Queue class and use with its API.
+ *  Usage:          For normal operation, import QueueAssign5 class and use with its API.
  *                  For testing, run main method with the class compiled with assertions enabled.
  *  Based on:       Inspiration taken from: https://algs4.cs.princeton.edu/13stacks/Queue.java.html
  *  TODO: remove all prints except tests
@@ -251,104 +251,6 @@ public class QueueAssign5<T> implements Iterable<T> {
                 System.out.println("Assertions are not enabled. Tests not completed.");
             }
         }
-        String result;
-
-        OrderedQueueAssign6<String> q = new OrderedQueueAssign6<>();
-        q.enqueueLast("a");
-        q.enqueueLast("c");
-        q.enqueueFirst("1");
-        result = q.dequeueFirst();
-        assert result.equals("1");
-
-        result = q.dequeueFirst();
-        assert result.equals("a");
-
-        result = q.dequeueFirst();
-        assert result.equals("c");
-
-        try{
-            q.dequeueFirst();
-            assert false;
-        } catch (NoSuchElementException e){
-            assert true;
-        }
-
-
-
-        OrderedQueueAssign6<String> q1 = new OrderedQueueAssign6<>();
-        q1.enqueueFirst("a");
-        q1.enqueueFirst("b");
-        q1.enqueueFirst("c");
-        q1.enqueueLast("1");
-
-        result = q1.dequeueLast();
-        assert result.equals("1");
-
-        result = q1.dequeueLast();
-        assert result.equals("a");
-
-        result = q1.dequeueLast();
-        assert result.equals("b");
-
-        result = q1.dequeueLast();
-        assert result.equals("c");
-
-        try{
-            q1.dequeueFirst();
-            assert false;
-        } catch (NoSuchElementException e){
-            assert true;
-        }
-
-        OrderedQueueAssign6<String> q2 = new OrderedQueueAssign6<>();
-        q2.enqueueLast("a");
-        q2.enqueueLast("b");
-        q2.enqueueLast("c");
-        q2.enqueueLast("d");
-
-        String[] expected = {"a", "b", "c", "d"};
-        int index = 0;
-        for (String item : q2){
-            assert item.equals(expected[index]);
-            index++;
-        }
-
-        try{
-            Iterator<String> iter = q2.iterator();
-            for(int i = 0; i < 5; i++){
-                iter.next();
-            }
-            assert false;
-        } catch (NoSuchElementException e){
-            assert true;
-        }
-
-        assert q2.toString().equals("{[a], [b], [c], [d]}");
-
-
-        OrderedQueueAssign6<String> orderedQueueAssign6 = new OrderedQueueAssign6<>();
-        orderedQueueAssign6.enqueueLast("0");
-        orderedQueueAssign6.enqueueLast("1");
-        orderedQueueAssign6.enqueueLast("2");
-        orderedQueueAssign6.enqueueLast("3");
-        orderedQueueAssign6.enqueueLast("4");
-
-        System.out.println("Queue: " + orderedQueueAssign6);
-        int i = 3;
-        System.out.println("Remove from index: " + i);
-        orderedQueueAssign6.dequeItemAtIndex(i);
-        System.out.println(orderedQueueAssign6);
-
-        i = 0;
-        System.out.println("Remove from index: " + i);
-        orderedQueueAssign6.dequeItemAtIndex(i);
-        System.out.println(orderedQueueAssign6);
-
-        i = 2;
-        System.out.println("Remove from index: " + i);
-        orderedQueueAssign6.dequeItemAtIndex(i);
-        System.out.println(orderedQueueAssign6);
-
 
 
 

@@ -4,7 +4,7 @@
  *  Created:        2020-09-04
  *  Updated:
  *  Solves problem: Lab 1, assignment 4.
- *  Usage:          For normal operation, import Queue class and use with its API.
+ *  Usage:          For normal operation, import QueueAssign4 class and use with its API.
  *                  For testing, run main method with the class compiled with assertions enabled.
  *  Based on:       Inspiration taken from: https://algs4.cs.princeton.edu/13stacks/Queue.java.html
  *  TODO: remove all prints except tests

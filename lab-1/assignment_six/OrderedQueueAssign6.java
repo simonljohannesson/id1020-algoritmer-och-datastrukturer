@@ -1,20 +1,23 @@
 /*
  *  Author:         Simon Johannesson
  *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
- *  Created:        2020-09-04
+ *  Created:        2020-09-07
  *  Updated:
  *  Solves problem: Lab 1, assignment 6.
- *  Usage:          For normal operation, import Queue class and use with its API.
+ *  Usage:          For normal operation, import OrderedQueueAssign6 class and use with its API.
  *                  For testing, run main method with the class compiled with assertions enabled.
  *  Based on:       Inspiration taken from: https://algs4.cs.princeton.edu/13stacks/Queue.java.html
- *  TODO: remove all prints except tests
  */
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-@SuppressWarnings("DuplicatedCode")
-public class OrderedQueueAssign6<T> implements Iterable<T> {
+/**
+ * Ordered queue implemented as a linked list.
+ *
+ * Smallest elements at beginning of list, and largest at end of list.
+ */
+public class OrderedQueueAssign6<T extends Comparable<T>> implements Iterable<T> {
     private Node first;
     private int size;
 
@@ -103,7 +106,6 @@ public class OrderedQueueAssign6<T> implements Iterable<T> {
     public T dequeueLast(){
         if (isEmpty()) throw new NoSuchElementException("Queue underflow");
         Node node = removeNode(first.previous);
-
         return node.item;
     }
 
@@ -141,6 +143,37 @@ public class OrderedQueueAssign6<T> implements Iterable<T> {
 
         // update head to point to the new first item
         first = first.previous;
+    }
+
+    private boolean isLessThan(T first, T second){
+        return first.compareTo(second) < 0;
+    }
+
+    /**
+     * Adds item to the queue in order.
+     *
+     * @param item item to add to the queue
+     */
+    public void enqueue(T item){
+        // create new node
+        Node newNode = new Node();
+        newNode.item = item;
+        // list empty
+        if (isEmpty()) {
+            enqueueFirst(item);
+        } else if (isLessThan(newNode.item, first.item)){
+            enqueueFirst(item);
+        } else if (isLessThan(first.previous.item, newNode.item)){
+            enqueueLast(item);
+        } else{
+            Node next = first;
+            while ((next = next.next) != first){
+                if (isLessThan(newNode.item, next.item)){
+                    addNodeAfter(next.previous, newNode);
+                    break;
+                }
+            }
+        }
     }
 
     public T dequeItemAtIndex(int index){
@@ -239,7 +272,7 @@ public class OrderedQueueAssign6<T> implements Iterable<T> {
         }
     }
     public static void main(String[] args){
-        System.out.println("Running tests on class QueueAssign5");
+        System.out.println("Running tests on class QueueAssign6");
 
         boolean assertionsEnabled = false;
         try{
@@ -251,111 +284,67 @@ public class OrderedQueueAssign6<T> implements Iterable<T> {
                 System.out.println("Assertions are not enabled. Tests not completed.");
             }
         }
-        String result;
 
-        OrderedQueueAssign6<String> q = new OrderedQueueAssign6<>();
-        q.enqueueLast("a");
-        q.enqueueLast("c");
-        q.enqueueFirst("1");
-        result = q.dequeueFirst();
-        assert result.equals("1");
 
-        result = q.dequeueFirst();
-        assert result.equals("a");
+        OrderedQueueAssign6<Integer> q = new OrderedQueueAssign6<>();
+        System.out.println(q);
 
-        result = q.dequeueFirst();
-        assert result.equals("c");
+        q.enqueue(1);
+        System.out.println(q);
 
+        q.enqueue(2);
+        System.out.println(q);
+
+        q.enqueue(4);
+        System.out.println(q);
+
+        q.enqueue(3);
+        System.out.println(q);
+
+        q.enqueue(0);
+        System.out.println(q);
+
+        Integer result;
+
+        result = q.dequeueLast();
+        System.out.println(q);
+        assert (result.equals(4));
+        assert (q.size() == 4);
+
+
+        result = q.dequeueLast();
+        System.out.println(q);
+        assert (result.equals(3));
+        assert (q.size() == 3);
+
+
+        result = q.dequeueLast();
+        System.out.println(q);
+        assert (result.equals(2));
+        assert (q.size() == 2);
+
+        result = q.dequeueLast();
+        System.out.println(q);
+        assert (result.equals(1));
+        assert (q.size() == 1);
+
+        result = q.dequeueLast();
+        System.out.println(q);
+        assert (result.equals(0));
+        assert (q.size() == 0);
+
+        try{
+            q.dequeueLast();
+            assert false;
+        } catch (NoSuchElementException e){
+            assert true;
+        }
         try{
             q.dequeueFirst();
             assert false;
         } catch (NoSuchElementException e){
             assert true;
         }
-
-
-
-        OrderedQueueAssign6<String> q1 = new OrderedQueueAssign6<>();
-        q1.enqueueFirst("a");
-        q1.enqueueFirst("b");
-        q1.enqueueFirst("c");
-        q1.enqueueLast("1");
-
-        result = q1.dequeueLast();
-        assert result.equals("1");
-
-        result = q1.dequeueLast();
-        assert result.equals("a");
-
-        result = q1.dequeueLast();
-        assert result.equals("b");
-
-        result = q1.dequeueLast();
-        assert result.equals("c");
-
-        try{
-            q1.dequeueFirst();
-            assert false;
-        } catch (NoSuchElementException e){
-            assert true;
-        }
-
-        OrderedQueueAssign6<String> q2 = new OrderedQueueAssign6<>();
-        q2.enqueueLast("a");
-        q2.enqueueLast("b");
-        q2.enqueueLast("c");
-        q2.enqueueLast("d");
-
-        String[] expected = {"a", "b", "c", "d"};
-        int index = 0;
-        for (String item : q2){
-            assert item.equals(expected[index]);
-            index++;
-        }
-
-        try{
-            Iterator<String> iter = q2.iterator();
-            for(int i = 0; i < 5; i++){
-                iter.next();
-            }
-            assert false;
-        } catch (NoSuchElementException e){
-            assert true;
-        }
-
-        assert q2.toString().equals("{[a], [b], [c], [d]}");
-
-
-        OrderedQueueAssign6<String> orderedQueueAssign6 = new OrderedQueueAssign6<>();
-        orderedQueueAssign6.enqueueLast("0");
-        orderedQueueAssign6.enqueueLast("1");
-        orderedQueueAssign6.enqueueLast("2");
-        orderedQueueAssign6.enqueueLast("3");
-        orderedQueueAssign6.enqueueLast("4");
-
-        System.out.println("Queue: " + orderedQueueAssign6);
-        int i = 3;
-        System.out.println("Remove from index: " + i);
-        orderedQueueAssign6.dequeItemAtIndex(i);
-        System.out.println(orderedQueueAssign6);
-
-        i = 0;
-        System.out.println("Remove from index: " + i);
-        orderedQueueAssign6.dequeItemAtIndex(i);
-        System.out.println(orderedQueueAssign6);
-
-        i = 2;
-        System.out.println("Remove from index: " + i);
-        orderedQueueAssign6.dequeItemAtIndex(i);
-        System.out.println(orderedQueueAssign6);
-
-
-
-
-
-
-
-
 
 
         if (assertionsEnabled){
