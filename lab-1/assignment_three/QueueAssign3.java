@@ -58,7 +58,6 @@ public class QueueAssign3<T> implements Iterable<T> {
             first.previous = newNode;
         }
         size++;
-        System.out.println(this);
     }
 
     /**
@@ -91,7 +90,6 @@ public class QueueAssign3<T> implements Iterable<T> {
         // remove loitering references
         dequeueNode.previous = dequeueNode.next = null;
 
-        System.out.println(this);
         return dequeueNode.item;
     }
 

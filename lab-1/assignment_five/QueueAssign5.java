@@ -7,7 +7,6 @@
  *  Usage:          For normal operation, import Queue class and use with its API.
  *                  For testing, run main method with the class compiled with assertions enabled.
  *  Based on:       Inspiration taken from: https://algs4.cs.princeton.edu/13stacks/Queue.java.html
- *  TODO: change iterator name
  *  TODO: remove all prints except tests
  */
 
@@ -213,12 +212,12 @@ public class QueueAssign5<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new AccessibleQueueIterator();
+        return new QueueAssign5Iterator();
     }
-    private class AccessibleQueueIterator implements Iterator<T> {
+    private class QueueAssign5Iterator implements Iterator<T> {
         Node next;
 
-        AccessibleQueueIterator(){
+        QueueAssign5Iterator(){
             next = first;
         }
 
@@ -254,7 +253,7 @@ public class QueueAssign5<T> implements Iterable<T> {
         }
         String result;
 
-        QueueAssign5<String> q = new QueueAssign5<>();
+        OrderedQueueAssign6<String> q = new OrderedQueueAssign6<>();
         q.enqueueLast("a");
         q.enqueueLast("c");
         q.enqueueFirst("1");
@@ -276,7 +275,7 @@ public class QueueAssign5<T> implements Iterable<T> {
 
 
 
-        QueueAssign5<String> q1 = new QueueAssign5<>();
+        OrderedQueueAssign6<String> q1 = new OrderedQueueAssign6<>();
         q1.enqueueFirst("a");
         q1.enqueueFirst("b");
         q1.enqueueFirst("c");
@@ -301,7 +300,7 @@ public class QueueAssign5<T> implements Iterable<T> {
             assert true;
         }
 
-        QueueAssign5<String> q2 = new QueueAssign5<>();
+        OrderedQueueAssign6<String> q2 = new OrderedQueueAssign6<>();
         q2.enqueueLast("a");
         q2.enqueueLast("b");
         q2.enqueueLast("c");
@@ -327,28 +326,28 @@ public class QueueAssign5<T> implements Iterable<T> {
         assert q2.toString().equals("{[a], [b], [c], [d]}");
 
 
-        QueueAssign5<String> queueAssign5 = new QueueAssign5<>();
-        queueAssign5.enqueueLast("0");
-        queueAssign5.enqueueLast("1");
-        queueAssign5.enqueueLast("2");
-        queueAssign5.enqueueLast("3");
-        queueAssign5.enqueueLast("4");
+        OrderedQueueAssign6<String> orderedQueueAssign6 = new OrderedQueueAssign6<>();
+        orderedQueueAssign6.enqueueLast("0");
+        orderedQueueAssign6.enqueueLast("1");
+        orderedQueueAssign6.enqueueLast("2");
+        orderedQueueAssign6.enqueueLast("3");
+        orderedQueueAssign6.enqueueLast("4");
 
-        System.out.println("Queue: " + queueAssign5);
+        System.out.println("Queue: " + orderedQueueAssign6);
         int i = 3;
         System.out.println("Remove from index: " + i);
-        queueAssign5.dequeItemAtIndex(i);
-        System.out.println(queueAssign5);
+        orderedQueueAssign6.dequeItemAtIndex(i);
+        System.out.println(orderedQueueAssign6);
 
         i = 0;
         System.out.println("Remove from index: " + i);
-        queueAssign5.dequeItemAtIndex(i);
-        System.out.println(queueAssign5);
+        orderedQueueAssign6.dequeItemAtIndex(i);
+        System.out.println(orderedQueueAssign6);
 
         i = 2;
         System.out.println("Remove from index: " + i);
-        queueAssign5.dequeItemAtIndex(i);
-        System.out.println(queueAssign5);
+        orderedQueueAssign6.dequeItemAtIndex(i);
+        System.out.println(orderedQueueAssign6);
 
 
 

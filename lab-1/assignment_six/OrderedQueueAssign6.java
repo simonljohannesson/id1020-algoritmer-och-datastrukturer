@@ -3,7 +3,7 @@
  *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
  *  Created:        2020-09-04
  *  Updated:
- *  Solves problem: Lab 1, assignment 4.
+ *  Solves problem: Lab 1, assignment 6.
  *  Usage:          For normal operation, import Queue class and use with its API.
  *                  For testing, run main method with the class compiled with assertions enabled.
  *  Based on:       Inspiration taken from: https://algs4.cs.princeton.edu/13stacks/Queue.java.html
@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 @SuppressWarnings("DuplicatedCode")
-public class QueueAssign4<T> implements Iterable<T> {
+public class OrderedQueueAssign6<T> implements Iterable<T> {
     private Node first;
     private int size;
 
@@ -27,7 +27,7 @@ public class QueueAssign4<T> implements Iterable<T> {
         Node next;
     }
 
-    public QueueAssign4(){
+    public OrderedQueueAssign6(){
         first = null;
         size = 0;
     }
@@ -143,6 +143,21 @@ public class QueueAssign4<T> implements Iterable<T> {
         first = first.previous;
     }
 
+    public T dequeItemAtIndex(int index){
+        if (index >= size  || index < 0){
+            throw new IndexOutOfBoundsException();
+        }
+        int i = 0;
+        Iterator<Node> iterator = nodeIterator();
+        Node node;
+        while(true){
+            node = iterator.next();
+            if (i == index) break;
+            i++;
+        }
+        return removeNode(node).item;
+    }
+
     /**
      * Size of queue.
      * @return the size of the queue
@@ -167,14 +182,42 @@ public class QueueAssign4<T> implements Iterable<T> {
         return string.toString();
     }
 
-    @Override
-    public Iterator<T> iterator() {
-        return new QueueAssign4Iterator();
+    private Iterator<Node> nodeIterator(){
+        return new NodeIterator();
     }
-    private class QueueAssign4Iterator implements Iterator<T> {
+
+    private class NodeIterator implements Iterator<Node> {
         Node next;
 
-        QueueAssign4Iterator(){
+        NodeIterator(){
+            next = first;
+        }
+
+        @Override
+        public boolean hasNext(){
+            return next != null;
+        }
+        @Override
+        public Node next(){
+            if (next == null) throw new NoSuchElementException();
+            Node current = next;
+            if (next.next == first){
+                next = null;
+            } else {
+                next = next.next;
+            }
+            return current;
+        }
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new OrderedQueueAssign6Iterator();
+    }
+    private class OrderedQueueAssign6Iterator implements Iterator<T> {
+        Node next;
+
+        OrderedQueueAssign6Iterator(){
             next = first;
         }
 
@@ -196,7 +239,7 @@ public class QueueAssign4<T> implements Iterable<T> {
         }
     }
     public static void main(String[] args){
-        System.out.println("Running tests on class QueueAssign4");
+        System.out.println("Running tests on class QueueAssign5");
 
         boolean assertionsEnabled = false;
         try{
@@ -210,7 +253,7 @@ public class QueueAssign4<T> implements Iterable<T> {
         }
         String result;
 
-        QueueAssign4<String> q = new QueueAssign4<>();
+        OrderedQueueAssign6<String> q = new OrderedQueueAssign6<>();
         q.enqueueLast("a");
         q.enqueueLast("c");
         q.enqueueFirst("1");
@@ -232,7 +275,7 @@ public class QueueAssign4<T> implements Iterable<T> {
 
 
 
-        QueueAssign4<String> q1 = new QueueAssign4<>();
+        OrderedQueueAssign6<String> q1 = new OrderedQueueAssign6<>();
         q1.enqueueFirst("a");
         q1.enqueueFirst("b");
         q1.enqueueFirst("c");
@@ -257,7 +300,7 @@ public class QueueAssign4<T> implements Iterable<T> {
             assert true;
         }
 
-        QueueAssign4<String> q2 = new QueueAssign4<>();
+        OrderedQueueAssign6<String> q2 = new OrderedQueueAssign6<>();
         q2.enqueueLast("a");
         q2.enqueueLast("b");
         q2.enqueueLast("c");
@@ -273,7 +316,7 @@ public class QueueAssign4<T> implements Iterable<T> {
         try{
             Iterator<String> iter = q2.iterator();
             for(int i = 0; i < 5; i++){
-               iter.next();
+                iter.next();
             }
             assert false;
         } catch (NoSuchElementException e){
@@ -282,11 +325,45 @@ public class QueueAssign4<T> implements Iterable<T> {
 
         assert q2.toString().equals("{[a], [b], [c], [d]}");
 
-    if (assertionsEnabled){
-        System.out.println("TESTS SUCCESSFUL!!!");
-    } else {
-        System.out.println("Assertions are not enabled. Tests not completed.");
-    }
+
+        OrderedQueueAssign6<String> orderedQueueAssign6 = new OrderedQueueAssign6<>();
+        orderedQueueAssign6.enqueueLast("0");
+        orderedQueueAssign6.enqueueLast("1");
+        orderedQueueAssign6.enqueueLast("2");
+        orderedQueueAssign6.enqueueLast("3");
+        orderedQueueAssign6.enqueueLast("4");
+
+        System.out.println("Queue: " + orderedQueueAssign6);
+        int i = 3;
+        System.out.println("Remove from index: " + i);
+        orderedQueueAssign6.dequeItemAtIndex(i);
+        System.out.println(orderedQueueAssign6);
+
+        i = 0;
+        System.out.println("Remove from index: " + i);
+        orderedQueueAssign6.dequeItemAtIndex(i);
+        System.out.println(orderedQueueAssign6);
+
+        i = 2;
+        System.out.println("Remove from index: " + i);
+        orderedQueueAssign6.dequeItemAtIndex(i);
+        System.out.println(orderedQueueAssign6);
+
+
+
+
+
+
+
+
+
+
+        if (assertionsEnabled){
+            System.out.println("TESTS SUCCESSFUL!!!");
+        } else {
+            System.out.println("Assertions are not enabled. Tests not completed.");
+        }
 
     }
 }
+
