@@ -1,0 +1,42 @@
+Explanation to the class BalanceAssignHigher.
+
+Algorithm motivation:
+
+The algorithm is simple to understand and implement.
+By using a stack it is easy to keep track of the type of parenthesis/bracket
+that is open currently, then it is just a matter of checking if the closing
+bracket that is being checked is of the same type as the current open bracket.
+There are two cases that need to be handled specifically:
+    1) a closing bracket steers the code to try to pop from an empty stack
+    2) stack is not empty when all characters have been checked
+
+
+Time complexity:
+
+At worst case a single character may need 10 comparisons before it is completely
+decided what action should be taken by the code, then there are a few cases where
+fewer comparisons need to be made.
+
+At best case the first character that is checked is a closing bracket, in which
+case the time complexity is constant. The algorithm will terminate because there
+is no way for the parenthesis to become balanced after that.
+
+In any case it is clear that the time complexity will be between constant and
+linear at big inputs. So the average case will be linear at big inputs.
+
+
+Memory complexity:
+
+The algorithm takes all the input at once, so the memory complexity to begin with
+is always n for an n long input.
+
+At best case scenario, it will never be necessary to push anything to the stack.
+In which case the only extra needed memory will be the memory needed for the stack
+object and for the single character that keeps being saved to be checked against.
+So best case memory complexity is n for big inputs.
+
+At worst case all characters need to be added to the stack, in which case the
+memory complexity will be 2n, but for large input the memory complexity is still
+considered to be n.
+
+So, average case memory complexity will be n for large inputs.

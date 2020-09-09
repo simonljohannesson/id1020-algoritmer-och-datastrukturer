@@ -6,7 +6,8 @@
  *  Usage:          For normal operation, run program without any arguments. When prompted input data, the data will
  *                  print it back in reverse.
  *                  For testing, run program with assertions enabled (-ea)
- *  Based on:       None.
+ *  Based on:       Half based on something Rönngren said during one of the first lectures.
+ *                  I can't remember exactly what he said but it pointed towards using stacks.
  */
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -20,7 +21,8 @@ public class BalanceAssignHigher {
     public static boolean parenthesisAreBalanced(String input){
         LinkedStackAssign2<Character> stack = new LinkedStackAssign2<>();
         try {
-            for (Character c : input.toCharArray()) {
+            for (int i = 0; i < input.length(); i++) {
+                char c = input.charAt(i);
                 if (c == '(' || c == '{' || c == '[') stack.push(c);
                 else if (c == ')' || c == '}' || c == ']') {
                     Character popped = stack.pop();
