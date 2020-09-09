@@ -1,6 +1,7 @@
 *.iml
 lab-1/assignment_two/out/*
 lab-1/assignment_two/.idea/*
+lab-1/assignment_three/Test.java
 .vscode
 lab-1/assignment_one/reverse_input
 lab-1/.idea/*
