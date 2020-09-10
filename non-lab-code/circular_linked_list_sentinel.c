@@ -28,15 +28,10 @@ LinkedListPtr initiateLinkedList(){
     checkMalloc(sentinel);
     sentinel->next = sentinel;
     sentinel->previous = sentinel;
-    sentinel->number= -555;  // debug purpose
 
     LinkedListPtr list = (LinkedListPtr) malloc(sizeof(LinkedList));
     checkMalloc(list);
-    // int* size = (int*) malloc(sizeof(int));
-    // checkMalloc(size);
     list->head = sentinel;
-    // *size = 0;
-    // list->size = size;
     list->size = 0;
     return list;
 }
