@@ -19,6 +19,25 @@ void print_array(const int* const array, int lo, int hi){
     printf("]");
 }
 
+/* returns 1 if list is sorted otherwise 0 */
+int is_sorted(int *a, int len){
+    for(int i = 0; i < len-1; ++i){
+        if (a[i] > a[i+1]) return 0;
+    }
+    return 1;
+}
+
+/* performs insertion sort on part of an array */
+void insertion_sort_part(int *a, int lo, int hi){
+    for(int i = 1; i <= hi; ++i){
+        for(int j = i; j > lo  &&  a[j] < a[j-1]; --j){
+            int swap = a[j];
+            a[j] = a[j-1];
+            a[j-1] = swap;
+        }
+    }
+}
+
 /* swaps places of elements at indices provided in array provided */
 void swap(int *a, int i, int j){
         int swap = a[j];
@@ -63,8 +82,6 @@ int partition(int *a, int lo, int hi){
     // move pivot element to correct place in array (remember it was swapped with lo)
     swap(a, lo, j);
     // return index of the pivot element
-    print_array(a, lo, hi);
-    printf("\n");
     return j;
 }
 
@@ -77,12 +94,29 @@ void sort(int *a, int lo, int hi){
     sort(a, mid+1, hi);
 }
 
+void sort_cutoff(int *a, int lo, int hi, int cutoff_len){
+    // check if should cutoff (new base case)
+    if(hi-lo <= cutoff_len){
+        insertion_sort_part(a, lo, hi);
+        return;
+    }
+    // base case
+    // if (hi <= lo) return;
+    // partition
+    int mid = partition(a, lo, hi);
+    sort(a, lo, mid-1);
+    sort(a, mid+1, hi);
+}
+
 
 void main(void){
-    int a[] = {10, 16, 2, 4, 18, 3, 12, 5, 1, 6, 15};
-    print_array(a, 0, 10);
-    printf("\n");
-    sort(a, 0, 10);
-    print_array(a, 0, 10);
-    printf("\n");
+    int a[] = {10, 16, 123, 2, 223, 4, 18, 3, 12, 5, 932, 1, 296, 6, 15, 32, 342, 92};
+    printf(is_sorted(a, 18)? "List is sorted\n":"List is not sorted\n");
+    sort(a, 0, 17);
+    printf(is_sorted(a, 18)? "List is sorted\n":"List is not sorted\n");
+
+    int b[] = {10, 16, 123, 2, 223, 4, 18, 3, 12, 5, 932, 1, 296, 6, 15, 32, 342, 92};
+    printf(is_sorted(b, 18)? "List is sorted\n":"List is not sorted\n");
+    sort_cutoff(b, 0, 17, 4);
+    printf(is_sorted(b, 18)? "List is sorted\n":"List is not sorted\n");
 }
