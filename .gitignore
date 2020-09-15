@@ -7,3 +7,5 @@ lab-1/assignment_one/reverse_input
 lab-1/.idea/*
 lab-1/out/*
 non-lab-code/clls
+non-lab-code/data/*
+non-lab-code/*.o
