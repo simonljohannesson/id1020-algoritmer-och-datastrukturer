@@ -1,9 +1,3 @@
-/*
-    Quick sort:
-        - without cut off
-        - pivot point always first element in list
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -107,7 +101,6 @@ void sort_cutoff(int *a, int lo, int hi, int cutoff_len){
     sort(a, lo, mid-1);
     sort(a, mid+1, hi);
 }
-
 
 void main(void){
     int a[] = {10, 16, 123, 2, 223, 4, 18, 3, 12, 5, 932, 1, 296, 6, 15, 32, 342, 92};
