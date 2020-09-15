@@ -59,27 +59,35 @@ void sort(int *a, int lo, int hi){
     sort(a, mid+1, hi);
 }
 
-void quicksort(int *a, int len){
-    sort(a, 0, len-1);
-}
-
-void sort_cutoff(int *a, int lo, int hi, int cutoff_len){
+void sort_cutoff(int *a, int lo, int hi){
     // check if should cutoff (new base case)
-    if(hi-lo <= cutoff_len){
-        insertion_sort_part(a, lo, hi);
+    if(hi-lo <= 20){
+        // insertion_sort_part(a, lo, hi);
+        /* insertion sort moved to the end for performance increase */
         return;
     }
     // base case
-    // if (hi <= lo) return;
+    if (hi <= lo) return;
     // partition
     int mid = partition(a, lo, hi);
-    sort_cutoff(a, lo, mid-1, cutoff_len);
-    sort_cutoff(a, mid+1, hi, cutoff_len);
+    sort_cutoff(a, lo, mid-1);
+    sort_cutoff(a, mid+1, hi);
 }
 
-void main(int argc, char **argv){
+void quicksort_cutoff(int *a, int len){
+    sort_cutoff(a, 0, len-1);
+    insertion_sort_part(a, 0, len-1);
+}
 
-    if(argc > 1){
+/* compare function to benchmark against builtin qsort */
+int comp(const void* p1, const void* p2){
+    return *(int*)p1 - *(int*)p2;
+}
+
+
+
+void main(int argc, char **argv){
+        if(argc > 1){
         int *a;
         int len = atoi(argv[1]);
         // int cutoff = atoi(argv[2]);
@@ -91,7 +99,8 @@ void main(int argc, char **argv){
 
         if(len <= 20) print_array(a, 0, len-1);
         
-        quicksort(a, len);
+        quicksort_cutoff(a, len);
+        // qsort(a, len, sizeof(int), &comp);
 
         if(len <= 20) print_array(a, 0, len-1);
 

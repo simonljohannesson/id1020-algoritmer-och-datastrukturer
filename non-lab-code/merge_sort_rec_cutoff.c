@@ -35,33 +35,53 @@ void sort(int *a, int *aux, int lo, int hi){
     merge(a, aux, lo, mid, hi);
 }
 
-void sort_cutoff(int *a, int *aux, int lo, int hi, int cutoff_len){
+// void sort_cutoff(int *a, int *aux, int lo, int hi, int cutoff_len){
+//     // base case (cutoff)
+//     if (hi-lo <= cutoff_len) {
+//         insertion_sort_part(a, lo, hi);
+//         return;
+//     }
+//     // break up list into two
+//     int mid = (hi+lo)/2;
+//     sort_cutoff(a, aux, lo, mid, cutoff_len);
+//     sort_cutoff(a, aux, mid+1, hi, cutoff_len);
+//     merge(a, aux, lo, mid, hi);
+// }
+
+
+
+void sort_cutoff(int *a, int *aux, int lo, int hi){
     // base case (cutoff)
-    if (hi-lo <= cutoff_len) {
+    if (hi-lo <= 500) {
         insertion_sort_part(a, lo, hi);
         return;
     }
+    // if (hi <= lo) return;
     // break up list into two
     int mid = (hi+lo)/2;
-    sort_cutoff(a, aux, lo, mid, cutoff_len);
-    sort_cutoff(a, aux, mid+1, hi, cutoff_len);
+    sort_cutoff(a, aux, lo, mid);
+    sort_cutoff(a, aux, mid+1, hi);
     merge(a, aux, lo, mid, hi);
 }
+
 
 void merge_sort(int *a, int len){
     int* aux = (int*) malloc(sizeof(int)*len);
     sort(a, aux, 0, len-1);
 }
 
-void merge_sort_cutoff(int *a, int len, int cutoff_len){
+void merge_sort_cutoff(int *a, int len){
+// void merge_sort_cutoff(int *a, int len, int cutoff_len){
     int* aux = (int*) malloc(sizeof(int)*len);
-    sort_cutoff(a, aux, 0, len-1, cutoff_len);
+    // sort_cutoff(a, aux, 0, len-1, cutoff_len);
+    sort_cutoff(a, aux, 0, len-1);
 }
 
 void main(int argc, char **argv){
     if(argc > 1){
         int *a;
         int len = atoi(argv[1]);
+        // int cutoff = atoi(argv[2]);
         int success = array_from_stdin(&a, len);
         if(!success){
             printf("Could not allocate memory for input that is %d long.", len);
@@ -70,11 +90,12 @@ void main(int argc, char **argv){
 
         if(len <= 20) print_array(a, 0, len-1);
         
-        merge_sort(a, len);
+        // merge_sort_cutoff(a, len, cutoff);
+        merge_sort_cutoff(a, len);
 
         if(len <= 20) print_array(a, 0, len-1);
 
-        if(argc > 2 && strcmp(argv[2], "issorted") == 0){
+        if(argc > 3 && strcmp(argv[2], "issorted") == 0){
             printf(is_sorted(a, len)? "List is sorted\n":"List is not sorted\n");
         }
     }
