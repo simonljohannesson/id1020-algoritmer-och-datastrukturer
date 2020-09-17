@@ -12,9 +12,22 @@ void insertion_sort(int* a, const int len){
     }
 }
 
+void insertion_sort_print_swaps(int* a, const int len){
+    int swaps = 0;
+    for(int i = 1; i < len; ++i){
+        for(int j = i; j > 0  &&  a[j] < a[j-1]; --j){
+            int swap = a[j];
+            a[j] = a[j-1];
+            a[j-1] = swap;
+            ++swaps;
+        }
+    }
+    printf("Number of swaps: %d\n", swaps);
+}
+
 // /* performs insertion sort on part of an array */
 // void insertion_sort_part(int *a, int lo, int hi){
-//     for(int i = 1; i <= hi; ++i){
+//     for(int i = lo; i <= hi; ++i){
 //         for(int j = i; j > lo  &&  a[j] < a[j-1]; --j){
 //             int swap = a[j];
 //             a[j] = a[j-1];
@@ -25,12 +38,17 @@ void insertion_sort(int* a, const int len){
 
 /* performs insertion sort on part of an array - decending implementation */
 void insertion_sort_part_decending(int *a, int lo, int hi){
-    for(int i = 1; i <= hi; ++i){
-        for(int j = i; j > lo  &&  a[j] > a[j-1]; --j){
+    for(int i = lo; i <= hi; ++i){
+        for(int j = i; j > lo  &&  a[j] < a[j-1]; --j){
             int swap = a[j];
             a[j] = a[j-1];
             a[j-1] = swap;
         }
+    }
+    for(int i = lo, j = hi; i < j; ++i, --j){
+        int swap = a[j];
+        a[j] = a[i];
+        a[i] = swap;
     }
 }
 
@@ -65,6 +83,19 @@ void main(int argc, char** argv){
         if(argc > 2 && strcmp(argv[2], "issorted") == 0){
             printf(is_sorted(a, len)? "List is sorted\n":"List is not sorted\n");
         }
+    }
+    else{
+        // int a1[15] = {11, 3, 44, 2, 7, 0, 3, 10, 40, 9, 8, 32, 12, 22, 55};
+        // int len = 15;
+        // print_array(a1, 0, len-1);
+        // insertion_sort_print_swaps(a1, len);
+        // print_array(a1,0, len-1); 
+        int a1[] = {11, 3, 44, 2, 7, 0, 3, 10, 40, 9, 8, 32, 12, 22, 55, 4};
+        int len = 16;
+        print_array(a1, 0, len-1);
+        insertion_sort_part_decending(a1, 0, len-1);
+        print_array(a1, 0, len-1);
+        
     }
 
 

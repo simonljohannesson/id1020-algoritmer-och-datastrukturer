@@ -9,3 +9,6 @@ lab-1/out/*
 non-lab-code/clls
 non-lab-code/data/*
 non-lab-code/*.o
+non-lab-code/plot-venv/*
+non-lab-code/out/*
+non-lab-code/plots/*
