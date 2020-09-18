@@ -1,0 +1,33 @@
+Author:         Simon Johannesson
+Email:          simonljohannesson@gmail.com, sijohann@kth.se
+Created:        2020-09-18
+Updated:        
+Solves problem: Lab 2, assignment 5.
+Usage:          Read this file and the files it references.
+Based on:       None.
+
+
+Assignment 5 text:
+
+Compare the execution times for sorting large arrays of integers with insertionsort
+and merge sort. When should one select mergesort over insertionsort? Upload code,
+tests and a graphs depicting the execution times as a function of input (what
+parameters in the input could be relevant?).
+
+
+Solution:
+
+
+Files used to solve this assignment:
+- gen_rand_output.c
+  
+- gen_ordered_output.c
+- mergesort.c
+- insertionsort.c
+- runtime_comparison.py
+
+
+Diagrams:
+- mergesort-insertionsort-random.png
+- mergesort-insertionsort-ordered.png
+
