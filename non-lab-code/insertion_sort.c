@@ -51,6 +51,17 @@ void insertion_sort_part_decending(int *a, int lo, int hi){
         a[i] = swap;
     }
 }
+void insertion_sort_part_decending_better(int *a, int lo, int hi){
+    for(int i = lo; i <= hi; ++i) a[i] *=-1;
+    for(int i = lo; i <= hi; ++i){
+        for(int j = i; j > lo  &&  a[j] < a[j-1]; --j){
+            int swap = a[j];
+            a[j] = a[j-1];
+            a[j-1] = swap;
+        }
+    }
+    for(int i = lo; i <= hi; ++i) a[i] *=-1;
+}
 
 /* performs insertion sort on part of an array - negative values (assignment 4) */
 void insertion_sort_part_negative(int *a, int lo, int hi){
@@ -93,7 +104,7 @@ void main(int argc, char** argv){
         int a1[] = {11, 3, 44, 2, 7, 0, 3, 10, 40, 9, 8, 32, 12, 22, 55, 4};
         int len = 16;
         print_array(a1, 0, len-1);
-        insertion_sort_part_decending(a1, 0, len-1);
+        insertion_sort_part_decending_better(a1, 0, len-1);
         print_array(a1, 0, len-1);
         
     }
