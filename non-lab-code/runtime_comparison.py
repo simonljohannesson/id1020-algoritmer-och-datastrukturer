@@ -1,3 +1,19 @@
+"""
+    Author:         Simon Johannesson
+    Email:          simonljohannesson@gmail.com, sijohann@kth.se
+    Created:        2020-09-18
+    Updated:        
+    Solves problem: Compares runtimes between different implementations of sorting algorithms.
+    Usage:          Assert that all the compiled c files and directories exist as per the calls in the code,
+                    and run.
+                    The code will likely not run without a lot of work since it was built as a 'one off'
+                    script in order to work for this assignment, and so there are a lot of paths hardcoded
+                    into the file for faster development.
+                    This file is only handed in so that the person grading the lab handin can get a grasp
+                    of how I conducted the testing.
+    Based on:       None.
+
+"""
 import typing
 import subprocess
 import numpy as np
@@ -56,7 +72,7 @@ def compare_algorithms(
             mergesort=False, 
             quicksort=False,
             quicksort_mo3=False,
-            merge_sort_cutoff=True,
+            mergesort_cutoff=False,
             merge_sort_cutoff_len=15,
             insertionsort=False,
             ordered_input=False):
@@ -108,7 +124,7 @@ def compare_algorithms(
                 temp_results.append(time)
             quicksort_mo3_times.append(min(temp_results))
         
-        if(merge_sort_cutoff):
+        if(mergesort_cutoff):
             # test time for mergesort cutoff save best of three runs
             temp_results = []
             for i in range(3):
@@ -144,7 +160,7 @@ def compare_algorithms(
         y3 = quicksort_mo3_times
         pyplot.plot(x, y3, color="green", label="Quick sort MO3", marker="o")
 
-    if(mergesort_cutoff_times):
+    if(mergesort_cutoff):
         y5 = mergesort_cutoff_times
         label = "Mergesort cutoff: " + str(merge_sort_cutoff_len)
         pyplot.plot(x, y5, color="brown", label=label, marker="o")
@@ -166,14 +182,15 @@ def compare_algorithms(
 if __name__ == "__main__":
     compare_algorithms(
         0,
+        100000, 
         10000, 
-        1000, 
         "Data length", 
         "Time", 
-        "Test", 
+        "Time to sort randomly ordered lists", 
         "test.png",
-        mergesort=True, 
-        quicksort=True, 
-        quicksort_mo3=True,
-        ordered_input=True)
+        mergesort=True,
+        insertionsort=True, 
+        quicksort=False, 
+        quicksort_mo3=False,
+        ordered_input=False)
     pass
