@@ -1,0 +1,45 @@
+Author:         Simon Johannesson
+Email:          simonljohannesson@gmail.com, sijohann@kth.se
+Created:        2020-09-21
+Updated:        
+Solves problem: Lab 2, assignment 3, higher grade.
+Usage:          Read this file and the files it references.
+Based on:       None.
+
+
+Assignment 3 (higher grade) text:
+
+Compare the execution times of quicksort where the first element in each
+sub-array is selected as partitioning element to that of quicksort with
+median-of-three partitioning
+
+
+Solution:
+
+
+Files used to solve this assignment:
+- gen_rand_output.c - used to generate random output that can be piped to test the
+                      sorting algorithms
+- gen_ordered_output.c - used to generate ordered output that can be piped to test
+                         the sorting algorithms
+- quicksort.c - implementation of quicksort
+- quicksort_mo3.c - implementation of quicksort median of three pivot
+- runtime_comparison.py - script used to plot the differences in execution times when
+                          different sorting algorithms sort different types of data
+
+
+Diagrams:
+- quicksort-qsort-mo3-ordered.png
+- quicksort-qsort-mo3-random.png
+
+
+Result/Conclusion:
+
+When sorting randomly ordered lists the two quicksort implementations take roughly
+the same time. But when sorting lists that are already ordered it becomes clear that
+the median of three implementation has mitigated the issues with always using the
+element at the lowest index in the sub array as the pivot element. 
+
+As mentioned in the assignment4higher.txt sorting an already sorted list will
+cause the worst case time complexity for the quicksort that choses the element
+at the lowest (or highest) index in the sub array for its pivot element. 

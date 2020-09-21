@@ -1,0 +1,54 @@
+Author:         Simon Johannesson
+Email:          simonljohannesson@gmail.com, sijohann@kth.se
+Created:        2020-09-18
+Updated:        
+Solves problem: Lab 2, assignment 5.
+Usage:          Read this file and the files it references.
+Based on:       None.
+
+
+Assignment 5 text:
+
+Compare the execution times for sorting large arrays of integers with insertionsort
+and merge sort. When should one select mergesort over insertionsort? Upload code,
+tests and a graphs depicting the execution times as a function of input (what
+parameters in the input could be relevant?).
+
+
+Solution:
+
+
+Files used to solve this assignment:
+- gen_rand_output.c - used to generate random output that can be piped to test the
+                      sorting algorithms
+- gen_ordered_output.c - used to generate ordered output that can be piped to test
+                         the sorting algorithms
+- mergesort.c - implementation of mergesort
+- insertionsort.c - implementation of insertionsort
+- runtime_comparison.py - script used to plot the differences in execution times when
+                          different sorting algorithms sort different types of data
+
+
+Diagrams:
+- mergesort-insertionsort-random.png
+- mergesort-insertionsort-ordered.png
+
+
+Result/Conclusion:
+
+It is clear that mergesort is out-performing insertionsort (in time) when the data
+that should be sorted is out of order. However, when the data is already sorted it
+is the insertionsort that out-performs mergesort (in time).
+
+It's worth mentioning that insertionsort only seem to be slightly faster than
+mergesort when the data is already sorted, but mergesort is significantly faster
+than insertionsort when the data is out of order. 
+
+Insertionsort uses constant memory and mergesort uses extra data that is linear to
+the input data since it creates an auxilary list.
+
+With the above in mind one can draw the conclusion that if you know that the data is
+already fairly sorted and/or that an algorithm with constant memory complexity is 
+needed then insertionsort should be preferred. Mergesort on the other hand should be
+preferred when one can't be certain that the data is already fairly sorted and that
+an algorithm with linear memory complexity can be afforded.

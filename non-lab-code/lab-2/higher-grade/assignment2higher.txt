@@ -1,0 +1,50 @@
+Author:         Simon Johannesson
+Email:          simonljohannesson@gmail.com, sijohann@kth.se
+Created:        2020-09-21
+Updated:        
+Solves problem: Lab 2, assignment 2, higher grade.
+Usage:          Read this file and the files it references.
+Based on:       None.
+
+
+Assignment 2 (higher grade) text:
+
+Compare the execution times for sorting large arrays of integers with quicksort
+and merge sort. When should one select quicksort over mergesort?
+
+
+Solution:
+
+
+Files used to solve this assignment:
+- gen_rand_output.c - used to generate random output that can be piped to test the
+                      sorting algorithms
+- gen_ordered_output.c - used to generate ordered output that can be piped to test
+                         the sorting algorithms
+- mergesort.c - implementation of mergesort
+- quicksort.c - implementation of quicksort
+- runtime_comparison.py - script used to plot the differences in execution times when
+                          different sorting algorithms sort different types of data
+
+Diagrams:
+- mergesort-quicksort-random.png
+- mergesort-quicksort-ordered.png
+
+
+Result/Conclusion:
+
+When sorting randomly ordered lists the tendency is that the quicksort is faster,
+as was expected after reading the documentation. When sorting lists that are 
+already sorted it is clear that mergesort is significantly faster. The reason is
+the implementation of quicksort, more specifically how the pivot element is chosen.
+
+The pivot element is chosen as the element at the lowest index in the sub array,
+and that will result in the next two sub arrays being of length 0 and n-1. That
+ends up being the worst case time complexity for this specific quicksort
+implementation. Meanwhile mergesort will have nlogn time complexity no matter what
+the input is.
+
+With that background it is easy to draw the conclusion that this quicksort should be
+prefered over mergesort when it is known that the input data will be unsorted, and
+thus will not cause the worst case time complexity situation. Otherwise mergesort
+(or a different quicksort implementation) should be prefered.

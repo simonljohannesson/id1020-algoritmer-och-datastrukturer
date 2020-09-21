@@ -1,0 +1,40 @@
+Author:         Simon Johannesson
+Email:          simonljohannesson@gmail.com, sijohann@kth.se
+Created:        2020-09-18
+Updated:        
+Solves problem: Lab 2, assignment 6.
+Usage:          Read this file and the files it references.
+Based on:       None.
+
+
+Assignment 6 text:
+
+Experiment with the cut-off to insertionsort in merge. How is the execution time
+affected by different values for the cut-off? A suitable range for cut-off values
+to test with could be [0-30]. Upload code, tests and a graphs.
+
+
+
+Files used to solve this assignment:
+- gen_rand_output.c - used to generate random output that can be piped to test the
+                      sorting algorithms
+- gen_ordered_output.c - used to generate ordered output that can be piped to test
+                         the sorting algorithms
+- mergesort_cutoff.c - implementation of mergesort that cut off to insertionsort
+- runtime_comparison.py - script used to plot the differences in execution times when
+                          different sorting algorithms sort different types of data
+
+Diagrams:
+- mergesort-cutoff-comparison.png
+
+
+
+Result/Conclusion:
+
+As can be seen in the diagram it is clear that the mergesort with a cut off at 0
+(in other words normal mergesort without cut off) is significantly slower than the
+mergesorts with cut off's. It is somewhat hard to tell which is better and from
+the theory/material that I have read, the optimal cut off will depend slightly on
+the actual input. In the material a cut off between 5-15 seem to be favoured,
+though in my implementations it seems that the mergesorts that cutoff earlier
+has marginally better performance.
