@@ -51,3 +51,13 @@ void main(int argc, char** argv){
         }
     }
 }
+
+
+/* 
+Assignment text:
+
+Implement insertionsort. Augment the sorting process so that all the content of
+the array that is being sorted is printed after each inner loop iteration. Write
+a unit test in main() which allows the user to define the size of the input (N)
+and then input (N) integers from stdin which is to be sorted.     
+*/

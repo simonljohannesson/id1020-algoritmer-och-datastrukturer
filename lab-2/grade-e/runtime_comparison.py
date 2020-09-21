@@ -2,15 +2,14 @@
     Author:         Simon Johannesson
     Email:          simonljohannesson@gmail.com, sijohann@kth.se
     Created:        2020-09-18
-    Updated:        
+    Updated:        2020-09-21
     Solves problem: Compares runtimes between different implementations of sorting algorithms.
-    Usage:          Assert that all the compiled c files and directories exist as per the calls in the code,
-                    and run.
-                    The code will likely not run without a lot of work since it was built as a 'one off'
-                    script in order to work for this assignment, and so there are a lot of paths hardcoded
-                    into the file for faster development.
-                    This file is only handed in so that the person grading the lab handin can get a grasp
-                    of how I conducted the testing.
+    Usage:          Assert that all the hardcoded paths/names are correct for your system.
+                    Understand that the unsafe command 'shell=True' is used with a function in
+                    the module subprocess.
+
+                    This file is only handed in so that the person grading the lab handin has
+                    a reference to how my testing was conducted.
     Based on:       None.
 
 """
@@ -19,18 +18,12 @@ import subprocess
 import numpy as np
 import matplotlib.pyplot as pyplot
 
-# paths to sorting programs
-merge_sort_path = "./out/merge_sort_rec.o"
-insertion_sort_path = "./out/insertion_sort.o"
-quick_sort_cutoff_path = ".out/quick_sort_cutoff.o"
-merge_sort_cutoff_path = "./out/merge_sort_rec_cutoff.o"
-quick_sort_path = "./out/quick_sort.o"
-quick_sort_mo3_path = "./out/quick_sort_mo3.o"
+
 
 # paths programs that generate output
 rand_output_path = "./out/gen_rand_output.o"
 ordered_input_path = "./out/gen_ordered_output.o"
-temp_input_path = "./data/temp.txt"
+temp_input_path = "./temp.txt"
 
 
 
@@ -43,14 +36,6 @@ def time_sort(command) -> float:
     else:
         return float(time[2])
 
-def create_command(sort_file_path: str, len_input: int, data_file_path: str) -> str:
-    command_list = ["/usr/bin/time -f '%U'"]
-    command_list.append(sort_file_path)
-    command_list.append(str(len_input))
-    command_list.append("<")
-    command_list.append(data_file_path)
-    command = " ".join(command_list)
-    return command
 
 def gen_new_input_file(length: int, biggest_number: int) -> None:
     command = f"./out/gen_rand_output.o {length} {biggest_number} > ./data/temp.txt"
@@ -100,7 +85,7 @@ def compare_algorithms(
             # test time for merge sort save best of three runs
             temp_results = []
             for i in range(3):
-                command = create_command(merge_sort_path, test_data_length, temp_input_path)
+                command = f"/usr/bin/time -f '%U' ./out/mergesort.o {test_data_length} < {temp_input_path}"
                 time = time_sort(command)
                 temp_results.append(time)
             mergesort_times.append(min(temp_results))
@@ -109,7 +94,7 @@ def compare_algorithms(
             # test time for quick sort save best of three runs
             temp_results = []
             for i in range(3):
-                command = create_command(quick_sort_path, test_data_length, temp_input_path)
+                command = f"/usr/bin/time -f '%U' ./out/quicksort.o {test_data_length} < {temp_input_path}"
                 time = time_sort(command)
                 temp_results.append(time)
             quicksort_times.append(min(temp_results))
@@ -118,8 +103,7 @@ def compare_algorithms(
             # test time for quick sort mo3 save best of three runs
             temp_results = []
             for i in range(3):
-                # command = create_command(quick_sort_mo3_path, test_data_length, temp_input_path)
-                command = f"/usr/bin/time -f '%U' ./out/quick_sort_mo3.o {test_data_length} < {temp_input_path}"
+                command = f"/usr/bin/time -f '%U' ./out/quicksort_mo3.o {test_data_length} < {temp_input_path}"
                 time = time_sort(command)
                 temp_results.append(time)
             quicksort_mo3_times.append(min(temp_results))
@@ -128,7 +112,7 @@ def compare_algorithms(
             # test time for mergesort cutoff save best of three runs
             temp_results = []
             for i in range(3):
-                command = f"/usr/bin/time -f '%U' ./out/merge_sort_rec_cutoff.o {test_data_length} {merge_sort_cutoff_len} < {temp_input_path}"
+                command = f"/usr/bin/time -f '%U' ./out/mergesort_cutoff.o {test_data_length} {merge_sort_cutoff_len} < {temp_input_path}"
                 time = time_sort(command)
                 temp_results.append(time)
             mergesort_cutoff_times.append(min(temp_results))
@@ -137,7 +121,7 @@ def compare_algorithms(
             # test time for insertionsort save best of three runs
             temp_results = []
             for i in range(3):
-                command = f"/usr/bin/time -f '%U' ./out/insertion_sort.o {test_data_length} < {temp_input_path}"
+                command = f"/usr/bin/time -f '%U' ./out/insertionsort.o {test_data_length} < {temp_input_path}"
                 time = time_sort(command)
                 temp_results.append(time)
             insertionsort_times.append(min(temp_results))

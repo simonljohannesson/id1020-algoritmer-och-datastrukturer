@@ -43,7 +43,7 @@ void main(int argc, char** argv){
 
         print_array(a, 0, len-1);
         
-        insertion_sort(a, len);
+        insertion_sort_part_decending(a, 0, len-1);
 
         print_array(a, 0, len-1);
 

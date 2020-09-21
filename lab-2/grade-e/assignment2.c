@@ -49,3 +49,9 @@ void main(int argc, char** argv){
         }
     }
 }
+
+/* 
+Assignment text:
+
+Augment the above implementation so that it prints the number of swaps performed when sorting the array.   
+*/
