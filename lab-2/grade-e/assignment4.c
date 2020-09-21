@@ -1,3 +1,10 @@
+/******************************************************************************************
+ *                                                                                        *
+ *                                                                                        *
+ * RENAME FILE helper.c TO helper.h IF YOU WISH TO COMPILE ANY FILE THAT DEPEND ON IT!!!! *
+ *                                                                                        *
+ *                                                                                        *
+ *****************************************************************************************/
 /*
  *  Author:         Simon Johannesson
  *  Email:          simonljohannesson@gmail.com, sijohann@kth.se

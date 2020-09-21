@@ -25,7 +25,7 @@ Files used to solve this assignment:
                           different sorting algorithms sort different types of data
 
 Diagrams:
-- mergesort-cutoff-comparison.png
+- assignment6.pdf
 
 
 

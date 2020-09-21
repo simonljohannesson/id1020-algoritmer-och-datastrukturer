@@ -30,8 +30,7 @@ Files used to solve this assignment:
 
 
 Diagrams:
-- mergesort-insertionsort-random.png
-- mergesort-insertionsort-ordered.png
+- assignment5.pdf
 
 
 Result/Conclusion:

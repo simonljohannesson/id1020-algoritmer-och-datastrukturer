@@ -7,6 +7,10 @@
     Usage:          Assert that all the hardcoded paths/names are correct for your system.
                     Understand that the unsafe command 'shell=True' is used with a function in
                     the module subprocess.
+                    Make sure that the linux command line tool 'time' is installed and located
+                    at '/usr/bin/'.
+                    Make sure that matplotlib is installed in the environment where the script
+                    is run.
 
                     This file is only handed in so that the person grading the lab handin has
                     a reference to how my testing was conducted.
@@ -15,7 +19,6 @@
 """
 import typing
 import subprocess
-import numpy as np
 import matplotlib.pyplot as pyplot
 
 

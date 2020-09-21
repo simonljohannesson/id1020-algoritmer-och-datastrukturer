@@ -27,8 +27,7 @@ Files used to solve this assignment:
                           different sorting algorithms sort different types of data
 
 Diagrams:
-- mergesort-quicksort-random.png
-- mergesort-quicksort-ordered.png
+- assignment2higher.pdf
 
 
 Result/Conclusion:

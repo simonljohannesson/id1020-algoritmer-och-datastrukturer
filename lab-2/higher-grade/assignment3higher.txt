@@ -29,8 +29,7 @@ Files used to solve this assignment:
 
 
 Diagrams:
-- quicksort-qsort-mo3-ordered.png
-- quicksort-qsort-mo3-random.png
+- assignment3higher.pdf
 
 
 Result/Conclusion:
