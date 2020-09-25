@@ -12,3 +12,8 @@ non-lab-code/*.o
 non-lab-code/plot-venv/*
 non-lab-code/out/*
 non-lab-code/plots/*
+lab-3/c-impl/*
+lab-3/assignment-text
+lab-3/java-impl/.idea/*
+lab-3/java-impl/*.iml
+lab-3/java-impl/out/*
