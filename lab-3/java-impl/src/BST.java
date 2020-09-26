@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class BST<Key extends Comparable<Key>, Value>{
@@ -115,25 +116,36 @@ public class BST<Key extends Comparable<Key>, Value>{
         x.size = 1 + size(x.left) + size(x.right);
         return x;
     }
+    private void keys(Node x, Queue<Key> queue){
+        if(x == null)       return;
+        if(x.left != null)  keys(x.left, queue);
+        queue.enqueueLast(x.key);
+        if(x.right != null) keys(x.right, queue);
+    }
+    public Iterable<Key> keys() {
+        Queue<Key> queue = new Queue<>();
+        keys(root, queue);
+        return queue;
+    }
     public void delete(Key key){
         if (key == null) throw new IllegalArgumentException("Argument 'key' cannot be null.");
         root = delete(root, key);
     }
+
+
     public static void main(String[] args){
 
         BST<String, Integer> bst = new BST<>();
-        for(int i = 0; i < 5000; ++i){
+        for(int i = 0; i < 25; ++i){
             String s = Integer.toString(i);
             bst.put(s, i*2);
         }
-        System.out.println(bst.size());
-        for(int i = 400; i < 900; ++i){
+        for(int i = 15; i < 20; ++i){
             bst.delete(Integer.toString(i));
         }
-        System.out.println(bst.size());
 
-        for(int i = 2500; i < 2550; ++i){
-            System.out.println(bst.get(Integer.toString(i)));
+        for(String key : bst.keys()){
+            System.out.println("Key: '" + key + "' Val: " + bst.get(key));
         }
     }
 }

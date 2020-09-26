@@ -87,15 +87,15 @@ public class FrequencyCounter {
             System.exit(1);
         }
 
-        // find a key with the highest frequency count
-//        String max = "";
-//        st.put(max, 0);
-//        for (String word : st.keys()) {
-//            if (st.get(word) > st.get(max))
-//                max = word;
-//        }
+//         find a key with the highest frequency count
+        String max = "";
+        st.put(max, 0);
+        for (String word : st.keys()) {
+            if (st.get(word) > st.get(max))
+                max = word;
+        }
 
-//        System.out.println(max + " " + st.get(max));
+        System.out.println(max + " " + st.get(max));
         System.out.println("distinct = " + distinct);
         System.out.println("words    = " + words);
     }

@@ -1,3 +1,6 @@
+import java.util.Collection;
+import java.util.Iterator;
+
 public class BinarySearchST <Key extends Comparable<Key>, Value>{
     private static final int INIT_CAPACITY = 10;
     private Key[] keys;
@@ -108,6 +111,31 @@ public class BinarySearchST <Key extends Comparable<Key>, Value>{
         }
         return true;
     }
+    public Iterable<Key> keys(){
+        class KeyIterable implements Iterable<Key>{
+            class KeyIterator implements Iterator<Key>{
+                int index;
+                public KeyIterator(){
+                    index = 0;
+                }
+                @Override
+                public boolean hasNext() {
+                    return index < n;
+                }
+                @Override
+                public Key next() {
+                    return keys[index++];
+                }
+            }
+            @Override
+            public Iterator<Key> iterator() {
+                return new KeyIterator();
+            }
+        }
+
+
+        return new KeyIterable();
+    }
     public static void main(String[] args){
         BinarySearchST<String, Integer> bsst = new BinarySearchST<>();
 
@@ -116,9 +144,15 @@ public class BinarySearchST <Key extends Comparable<Key>, Value>{
             String s = Integer.toString(i);
             bsst.put(s, i*2);
         }
-        System.out.println(bsst.get("456"));
-        System.out.println(bsst.get("5000"));
+        for (int i = 100; i < 200; i++){
+            String s = Integer.toString(i);
+            bsst.delete(s);
+        }
+        for(String key : bsst.keys()){
+            System.out.println("Key: '" + key + "' Val: " + bsst.get(key));
+        }
 
 
     }
+
 }
