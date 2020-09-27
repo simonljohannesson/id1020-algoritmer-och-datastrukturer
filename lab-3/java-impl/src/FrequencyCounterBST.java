@@ -41,10 +41,10 @@ import java.util.regex.Pattern;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class FrequencyCounter {
+public class FrequencyCounterBST {
 
     // Do not instantiate.
-    private FrequencyCounter() { }
+    private FrequencyCounterBST() { }
 
     /**
      * Reads in a command-line integer and sequence of words from
@@ -59,19 +59,22 @@ public class FrequencyCounter {
         int minlen = 1;
         int n = 1;
         String path = "";
-        if (args.length > 1) {
+        if (args.length > 2) {
             minlen = Integer.parseInt(args[0]);
-            path = args[1];
+            n = Integer.parseInt(args[1]);
+            path = args[2];
         }else{
             System.out.println(
                     "WARNING: Incorrect usage, terminating program\n"
-                            + "Usage:\n"
-                            + "Input three arguments.\n"
-                            + "Arg1: minimum length of word for it to count as a word\n"
-                            + "Arg3: absolute path to text file to use as input\n");
+                    + "Usage:\n"
+                    + "Input three arguments.\n"
+                    + "Arg1: minimum length of word for it to count as a word\n"
+                    + "Arg2: how many hundred words that should be tested\n"
+                    + "Arg3: absolute path to text file to use as input\n");
             System.exit(1);
         }
 
+        for(int i = 100; i <= n; i+= 100){
             int distinct = 0, words = 0;
             BST<String, Integer> st = new BST<String, Integer>();
 
@@ -85,7 +88,7 @@ public class FrequencyCounter {
                 scanner.useDelimiter(pattern);
                 // start timer
                 long startTime = System.nanoTime();
-                while(scanner.hasNext()){
+                while(scanner.hasNext() && words < i*100){
                     String key = scanner.next();
 
                     if (key.length() < minlen) continue;
@@ -116,12 +119,13 @@ public class FrequencyCounter {
                     max = word;
             }
 
+            System.out.println("n=" + i + " time=" + time);
             System.out.println("most used word  = " + max);
             System.out.println("frequency count = " + st.get(max));
             System.out.println("distinct        = " + distinct);
             System.out.println("words           = " + words);
+        }
 
-
-    }
+        }
 
 }

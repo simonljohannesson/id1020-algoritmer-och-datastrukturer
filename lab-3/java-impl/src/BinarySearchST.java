@@ -65,6 +65,10 @@ public class BinarySearchST <Key extends Comparable<Key>, Value>{
         if(i < n && keys[i].compareTo(key) == 0) return vals[i];
         return null;
     }
+    public boolean contains(Key key){
+        if (key == null) throw new IllegalArgumentException("Argument 'key' cannot be null'.");
+        return get(key) != null;
+    }
     public void delete(Key key){
         if (key == null) throw new IllegalArgumentException("Argument 'key' cannot be null'.");
         if (isEmpty())return;
