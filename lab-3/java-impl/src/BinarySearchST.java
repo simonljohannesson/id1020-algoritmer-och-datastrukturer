@@ -1,3 +1,17 @@
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-09-28
+ *  Updated:
+ *  Solves problem: Lab 3, assignment 2.
+ *  Usage:          Compile and use with it's API.
+ *
+ *  Dependencies:   None.
+ *  (own classes)
+ *
+ *
+ *  Based on:       https://algs4.cs.princeton.edu/31elementary/BinarySearchST.java.html
+ */
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -33,12 +47,24 @@ public class BinarySearchST <Key extends Comparable<Key>, Value>{
         keys = new_keys;
         vals = new_vals;
     }
+
+    /**
+     * Returns size of the symbol table.
+     */
     public int size(){
         return n;
     }
+
+    /**
+     * Returns true if symbol table empty, otherwise false.
+     */
     public boolean isEmpty(){
         return size() == 0;
     }
+
+    /**
+     * Returns the number of keys in this symbol table strictly less than key.
+     */
     public int rank(Key key){
         if (key == null) throw new IllegalArgumentException("Argument 'key' cannot be 'null'.");
         // do binary search for the position of key
@@ -58,6 +84,9 @@ public class BinarySearchST <Key extends Comparable<Key>, Value>{
         // or keys index in list if it had been in the list
         return lo;
     }
+    /**
+     * Returns the value associated with the given key in this symbol table.
+     */
     public Value get(Key key){
         if (key == null) throw new IllegalArgumentException("Argument 'key' cannot be null'.");
         if (isEmpty()) return null;
@@ -65,10 +94,17 @@ public class BinarySearchST <Key extends Comparable<Key>, Value>{
         if(i < n && keys[i].compareTo(key) == 0) return vals[i];
         return null;
     }
+    /**
+     * Returns true if symbol table contains key, else false.
+     */
     public boolean contains(Key key){
         if (key == null) throw new IllegalArgumentException("Argument 'key' cannot be null'.");
         return get(key) != null;
     }
+
+    /**
+     * Removes the specified key and associated value from this symbol table.
+     */
     public void delete(Key key){
         if (key == null) throw new IllegalArgumentException("Argument 'key' cannot be null'.");
         if (isEmpty())return;
@@ -87,6 +123,10 @@ public class BinarySearchST <Key extends Comparable<Key>, Value>{
         // resize if 1/4 full
         if (n > 0  &&  n == keys.length/4) resize(keys.length/2);
     }
+
+    /**
+     * Inserts the specified key-value pair into the symbol table.
+     */
     public void put(Key key, Value value){
         if (key == null) throw new IllegalArgumentException("Argument 'key' cannot be null'.");
         if (value == null){
@@ -109,6 +149,10 @@ public class BinarySearchST <Key extends Comparable<Key>, Value>{
         vals[i] = value;
         ++n;
     }
+
+    /**
+     * Checks if the BinarySearchST is sorted.
+     */
     public boolean isSorted(){
         for (int i = 0; i < size()-1; ++i){
             if (keys[i].compareTo(keys[i+1]) > 0) return false;
@@ -136,8 +180,6 @@ public class BinarySearchST <Key extends Comparable<Key>, Value>{
                 return new KeyIterator();
             }
         }
-
-
         return new KeyIterable();
     }
     public static void main(String[] args){

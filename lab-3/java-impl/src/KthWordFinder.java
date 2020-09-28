@@ -1,3 +1,20 @@
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-09-28
+ *  Updated:
+ *  Solves problem: Lab 3, assignment higher grade.
+ *  Usage:          Compile. Input three arguments.
+ *                  Arg1: minimum length of word for it to count as a word
+ *                  Arg2: absolute path to text file to use as input
+ *
+ *  Dependencies:   SingleLinkedList (in same file)
+ *  (own classes)   BST.java
+ *                  HashTable.java
+ *
+ *
+ *  Based on:       https://algs4.cs.princeton.edu/31elementary/FrequencyCounter.java.html
+ */
 import java.io.*;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -6,10 +23,8 @@ import java.util.regex.Pattern;
 
 public class KthWordFinder {
 
-
     public static void main(String[] args){
         int minlen = 1;
-        int n = 1;
         String path = "";
         if (args.length > 1) {
             minlen = Integer.parseInt(args[0]);
@@ -23,6 +38,9 @@ public class KthWordFinder {
                             + "Arg2: absolute path to text file to use as input\n");
             System.exit(1);
         }
+
+        /* start time */
+        long startTime = System.nanoTime();
 
         /* scan file */
         BST<String, Integer> bst = new BST<>();
@@ -60,9 +78,8 @@ public class KthWordFinder {
         }
 
         // transfer to a hashtable
-        int order = bst.size(); // bst and bstKth have different sizes
-        System.out.println("size: " + bstKth.size());
-        System.out.println("size: " + bst.size());
+        // bst and bstKth have different sizes since bstKth has a linked list as value
+        int order = bst.size();
 
         HashTable<Integer, String> ht = new HashTable<>(bst.size()/4);
         for(Integer occurences : bstKth.keys()){
@@ -71,12 +88,17 @@ public class KthWordFinder {
             }
         }
 
+        /* end time */
+        long setupTimeNanoSeconds = System.nanoTime() - startTime;
+        double setupTimeSeconds =  setupTimeNanoSeconds / (double) 1.0e9;
+        System.out.println(String.format("Initialization time: about %.3f seconds\n", setupTimeSeconds));
+
         // query the bst for indices
 
         Scanner scanner = new Scanner(System.in);
         Pattern kToKpattern = Pattern.compile("\\s*\\d+\\s*-\\s*\\d+\\s*");
         Pattern first = Pattern.compile("\\d+(?=\\s*-{1})");
-        Pattern second = Pattern.compile("\\d+(?!\\s*-{1})");
+        Pattern second = Pattern.compile("\\d+$");
         scanner.useDelimiter("\n");
 
         System.out.println("Shows k:th most common words or k-k+n most common words. "
@@ -92,7 +114,6 @@ public class KthWordFinder {
                     if (firstM.find() && secondM.find()) {
                         int k1 = Integer.decode(input.substring(firstM.start(), firstM.end()));
                         int k2 = Integer.decode(input.substring(secondM.start(), secondM.end()));
-                        System.out.println("k = " + k1 + " & " + k2);
                         if(k1>=k2){
                             System.out.println("k1 can't be larger than k2");
                             continue;
@@ -101,8 +122,7 @@ public class KthWordFinder {
                         SingleLinkedList<String> results = new SingleLinkedList<>();
                         for(int i = k1; i<=k2; i++){
                             String word = ht.get(i);
-                            if(word != null)  results.addFirst(word);
-                            // TODO: implement addLast because the words are presented in incorrect order
+                            if(word != null)  results.addLast(word);
                         }
                         for(String word : results){
                             System.out.println(word);
@@ -111,7 +131,6 @@ public class KthWordFinder {
                 }
                 else{
                     int k = Integer.decode(input);
-                    System.out.println("k = " + k);
                     if(k < 1){
                         System.out.println("Not a valid k-value");
                         continue;
@@ -125,7 +144,6 @@ public class KthWordFinder {
                     }
                 }
 
-
             }catch (NumberFormatException e){
                 System.out.println("Incorrect input format.");
                 continue;
@@ -133,28 +151,11 @@ public class KthWordFinder {
             System.out.println("Shows k:th most common words or k-k+n most common words. "
                     + "Use format <integer> or <integer>-<integer>");
         }
-
-//        // query the bst for indices
-//        Scanner scanner = new Scanner(System.in);
-//        Integer input;
-//        System.out.println("Shows k:th most common word. Choose k: ");
-//        while((scanner.hasNext())){
-//            try{
-//                input = Integer.decode(scanner.next());
-//                if(input < 1) throw new NumberFormatException();
-////                LinkedList<Integer, String> result = ht.get(input);
-//                String result = ht.get(input);
-//                if(result == null){
-//                    System.out.println("No words matching that k.");
-//                }else{
-//                    System.out.println(result);
-//                }
-//            } catch (NumberFormatException e){
-//                System.out.println("Not a valid k-value.");
-//                continue;
-//            }
-//            System.out.println("Shows k:th most common word. Choose k: ");
-//        }
+        int[] indices = ht.getSizeAllIndices();
+        for (Integer i : indices){
+            System.out.print(i + ", ");
+        }
+        System.out.println();
     }
 }
 class SingleLinkedList<E> implements Iterable<E>{
@@ -172,6 +173,11 @@ class SingleLinkedList<E> implements Iterable<E>{
     }
     public void addFirst(E element){
         head.next = new Node(head.next, element);
+    }
+    public void addLast(E element){
+        Node prev = head;
+        while((prev.next)!=null) prev = prev.next;
+        prev.next = new Node(prev.next, element);
     }
     public Iterator<E> iterator(){
         return new Iterator<E>(){

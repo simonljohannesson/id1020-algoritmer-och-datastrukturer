@@ -18,3 +18,5 @@ lab-3/java-impl/.idea/*
 lab-3/java-impl/*.iml
 lab-3/java-impl/out/*
 lab-3/java-impl/*.txt
+*.class
+

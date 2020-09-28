@@ -1,6 +1,25 @@
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-09-28
+ *  Updated:
+ *  Solves problem: Lab 3, assignment 3.
+ *  Usage:          Compile. Use with the API.
+ *
+ *  Dependencies:   LinkedList (in same file)
+ *  (own classes)
+ *
+ *
+ *  Based on:       https://algs4.cs.princeton.edu/34hash/
+ *                  Looked at several of the files, but ended up creating
+ *                  a HashTable based on the text.
+ */
 import javax.management.ValueExp;
 import java.util.Iterator;
 
+/**
+ *  HashTable implemented as a hash table with separate chaining.
+ */
 public class HashTable<Key, Value> {
     private static final int INIT_SIZE = 20;
     private LinkedList[] arrayList;
@@ -14,7 +33,8 @@ public class HashTable<Key, Value> {
         M = capacity;
     }
     /**
-     * Returns a hash that is uniform for the size of the underlying list.
+     * Returns a hash that is uniform for the size of the underlying list
+     * provided that the hashCode function of the key is uniformly distributed.
      */
     private int hash(Key key){
         return (key.hashCode() & 0x7fffffff) % M;

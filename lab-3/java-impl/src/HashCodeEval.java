@@ -1,3 +1,20 @@
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-09-28
+ *  Updated:
+ *  Solves problem: Lab 3, assignment 3.
+ *  Usage:          Compile. Input two arguments.
+ *                  Arg1: minimum length of word for it to count as a word
+ *                  Arg2: absolute path to text file to use as input
+ *                  Shows data about collisions of the words hash codes.
+ *
+ *  Dependencies:   LinkedList (in same file)
+ *  (own classes)   BST.java
+ *
+ *
+ *  Based on:       https://algs4.cs.princeton.edu/31elementary/FrequencyCounter.java.html
+ */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -6,7 +23,6 @@ import java.util.regex.Pattern;
 public class HashCodeEval {
     public static void main(String[] args){
         int minlen = 1;
-        int n = 1;
         String path = "";
         if (args.length > 1) {
             minlen = Integer.parseInt(args[0]);

@@ -1,31 +1,41 @@
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-09-28
+ *  Updated:
+ *  Solves problem: Lab 3, assignment 3.
+ *  Usage:          Compile. Input one arguments.
+ *                  Arg1: absolute path to text file to use as input
+ *
+ *  Dependencies:   BST.java
+ *  (own classes)
+ *
+ *
+ *  Based on:       https://algs4.cs.princeton.edu/31elementary/FrequencyCounter.java.html
+ */
 import java.io.*;
 import java.util.Scanner;
 import java.util.LinkedList;
 
 public class IndexFinder {
     public static void main(String[] args){
-        int minlen = 1;
         int n = 1;
         String path = "";
         if (args.length > 1) {
-            minlen = Integer.parseInt(args[0]);
             path = args[1];
         }else{
             System.out.println(
                     "WARNING: Incorrect usage, terminating program\n"
                             + "Usage:\n"
-                            + "Input two arguments.\n"
-                            + "Arg1: minimum length of word for it to count as a word\n"
-                            + "Arg2: absolute path to text file to use as input\n");
+                            + "Input one arguments.\n"
+                            + "Arg1: absolute path to text file to use as input\n");
             System.exit(1);
         }
 
         /* scan file, print each word */
         BST<String, LinkedList<Integer>> bst = new BST<>();
 
-
         try {
-            File file = new File(path);
             DataInput di = new DataInputStream(new FileInputStream(path));
 
             char c;
@@ -37,12 +47,14 @@ public class IndexFinder {
                     int startIndex = index;
                     StringBuilder wordBuilder = new StringBuilder();
                     wordBuilder.append(c);
+                    // read rest of the word
                     while (Character.isLetter(c = (char) di.readByte())) {
                         ++index;
                         wordBuilder.append(c);
                     }
                     ++index; // increment one for the last char that was not a letter
-                    // here a whole word and it's start index is available
+
+                    // at this point a whole word and it's start index is available
                     String word = wordBuilder.toString();
                     if(bst.contains(word)){
                         bst.get(word).addLast(startIndex);
@@ -51,7 +63,6 @@ public class IndexFinder {
                         newLinkedList.addLast(startIndex);
                         bst.put(word, newLinkedList);
                     }
-
                 }
             }
         } catch (EOFException e){

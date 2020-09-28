@@ -1,46 +1,31 @@
-/******************************************************************************
- *  Compilation:  javac FrequencyCounter.java
- *  Execution:    java FrequencyCounter L < the-text.txt.txt
- *  Dependencies: ST.java StdIn.java StdOut.java
- *  Data files:   https://algs4.cs.princeton.edu/31elementary/tinyTale.txt
- *                https://algs4.cs.princeton.edu/31elementary/tale.txt
- *                https://algs4.cs.princeton.edu/31elementary/leipzig100K.txt
- *                https://algs4.cs.princeton.edu/31elementary/leipzig300K.txt
- *                https://algs4.cs.princeton.edu/31elementary/leipzig1M.txt
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-09-28
+ *  Updated:
+ *  Solves problem: Lab 3, assignment 2.
+ *  Usage:          Compile. "Input three arguments.
+ *                  Arg1: minimum length of word for it to count as a word
+ *                  Arg2: how many hundred words that should be tested
+ *                  Arg3: absolute path to text file to use as input
  *
- *  Read in a list of words from standard the-text.txt and print out
- *  the most frequently occurring word that has length greater than
- *  a given threshold.
+ *                  Will read N-hundred words from 10, to N in increments of 10
+ *                  and output the time and data for each of the test.
  *
- *  % java FrequencyCounter 1 < tinyTale.txt
- *  it 10
+ *                  Example arguments: 1 100 ./the-text.txt
  *
- *  % java FrequencyCounter 8 < tale.txt
- *  business 122
- *
- *  % java FrequencyCounter 10 < leipzig1M.txt
- *  government 24763
+ *  Dependencies:   BinarySearchST.java
+ *  (own classes)
  *
  *
- ******************************************************************************/
-
+ *  Based on:       https://algs4.cs.princeton.edu/31elementary/FrequencyCounter.java.html
+ */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-/**
- *  The {@code FrequencyCounter} class provides a client for
- *  reading in a sequence of words and printing a word (exceeding
- *  a given length) that occurs most frequently. It is useful as
- *  a test client for various symbol table implementations.
- *  <p>
- *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/31elementary">Section 3.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
- */
+
 public class FrequencyCounterBinarySearchST {
 
     // Do not instantiate.

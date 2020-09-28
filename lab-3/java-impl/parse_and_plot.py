@@ -1,3 +1,13 @@
+#
+#  Author:         Simon Johannesson
+#  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+#  Created:        2020-09-28
+#  Updated:
+#  Solves problem: Lab 3, assignment 2
+#                  Parses output from java files and plots the time data.
+#  Usage:          Don't use it. Only for reference.
+#  Based on:       None.
+#
 import subprocess
 import matplotlib.pyplot as pyplot
 import os

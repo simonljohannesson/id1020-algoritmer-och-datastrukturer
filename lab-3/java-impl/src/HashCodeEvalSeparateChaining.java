@@ -1,26 +1,48 @@
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-09-28
+ *  Updated:
+ *  Solves problem: Lab 3, assignment 3.
+ *  Usage:          Compile. Input three arguments.
+ *                  Arg1: minimum length of word for it to count as a word
+ *                  Arg2: absolute path to text file to use as input
+ *                  Arg3: capacity of the HashTable\
+ *                  Prints out how many of the hashcodes ended up at
+ *                  each index after being hashed with the hash function.
+ *
+ *  Dependencies:   LinkedList (in same file)
+ *  (own classes)   BST.java
+ *
+ *
+ *  Based on:       https://algs4.cs.princeton.edu/31elementary/FrequencyCounter.java.html
+ */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class HashCodeEvalDoubleChaining {
+public class HashCodeEvalSeparateChaining {
     public static void main(String[] args){
         int minlen = 1;
         int n = 1;
         String path = "";
+        int capacity = 10;
         if (args.length > 1) {
             minlen = Integer.parseInt(args[0]);
             path = args[1];
+            capacity = Integer.parseInt(args[2]);
         }else{
             System.out.println(
                     "WARNING: Incorrect usage, terminating program\n"
                             + "Usage:\n"
-                            + "Input two arguments.\n"
+                            + "Input three arguments.\n"
                             + "Arg1: minimum length of word for it to count as a word\n"
-                            + "Arg2: absolute path to text file to use as input\n");
+                            + "Arg2: absolute path to text file to use as input\n"
+                            + "Arg3: capacity of the HashTable\n");
             System.exit(1);
         }
-        HashTable<Integer, String> ht = new HashTable<>(50);
+        HashTable<Integer, String> ht = new HashTable<>(capacity);
 
         int collisions = 0, words = 0, unique = 0;
         // compute frequency counts

@@ -1,3 +1,17 @@
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-09-28
+ *  Updated:
+ *  Solves problem: Lab 3, assignment 2.
+ *  Usage:          Compile and use with it's API.
+ *
+ *  Dependencies:   None.
+ *  (own classes)
+ *
+ *
+ *  Based on:       https://algs4.cs.princeton.edu/32bst/BST.java.html
+ */
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -16,14 +30,22 @@ public class BST<Key extends Comparable<Key>, Value>{
         }
     }
     public BST(){}
+
+    /**
+     * Returns size of BST.
+     */
     public int size(){
         return size(root);
     }
+    // return number of key-value pairs in BST rooted at x
     private int size(Node x){
         if(x==null) return 0;
         else return x.size;
     }
-    public boolean isEmpty(){
+    /**
+     * Returns true if this symbol table is empty.
+     */
+     public boolean isEmpty(){
         return size() == 0;
     }
     private Value get(Node x, Key key){
@@ -34,9 +56,16 @@ public class BST<Key extends Comparable<Key>, Value>{
         else if (cmp > 0) return get(x.right, key);
         else              return x.val;
     }
+
+    /**
+     * Returns the value associated with the given key.
+     */
     public Value get(Key key){
         return get(root, key);
     }
+    /**
+     * Returns true if key is in symbol table.
+     */
     public boolean contains(Key key){
         if (key == null) throw new IllegalArgumentException("Argument 'key' cannot be null.");
         return get(key) != null;
@@ -51,6 +80,9 @@ public class BST<Key extends Comparable<Key>, Value>{
         x.size = 1+ size(x.left) + size(x.right);
         return x;
     }
+    /**
+     * Inserts the specified key-value pair into the symbol table
+     */
     public void put(Key key, Value val){
         if (key == null) throw new IllegalArgumentException("Argument 'key' cannot be null.");
         if (val == null) {
@@ -67,10 +99,18 @@ public class BST<Key extends Comparable<Key>, Value>{
         if(x.right == null) return x; // no more bigger keys
         else return max(x.right);
     }
+
+    /**
+     * Returns the smallest key in the symbol table.
+     */
     public Key min(){
         if(isEmpty()) throw new NoSuchElementException("Symbol table empty.");
         return min(root).key;
     }
+
+    /**
+     *  Returns the largest key in the symbol table.
+     */
     public Key max(){
         if(isEmpty()) throw new NoSuchElementException("Symbol table empty.");
         return max(root).key;
@@ -82,6 +122,9 @@ public class BST<Key extends Comparable<Key>, Value>{
         x.size = 1+ size(x.left) + size(x.right);
         return x;
     }
+    /**
+     * Removes the smallest key and associated value from the symbol table.
+     */
     public void deleteMin(){
         if(isEmpty()) throw new NoSuchElementException("Symbol table empty.");
         root = deleteMin(root);
@@ -92,6 +135,9 @@ public class BST<Key extends Comparable<Key>, Value>{
         x.size = 1 + size(x.left) + size(x.right);
         return x;
     }
+    /**
+     * Removes the largest key and associated value from the symbol table.
+     */
     public void deleteMax(){
         if(isEmpty()) throw new NoSuchElementException("Symbol table empty.");
         root = deleteMax(root);
@@ -127,6 +173,10 @@ public class BST<Key extends Comparable<Key>, Value>{
         keys(root, queue);
         return queue;
     }
+
+    /**
+     * Deletes key from symbol table.
+     */
     public void delete(Key key){
         if (key == null) throw new IllegalArgumentException("Argument 'key' cannot be null.");
         root = delete(root, key);

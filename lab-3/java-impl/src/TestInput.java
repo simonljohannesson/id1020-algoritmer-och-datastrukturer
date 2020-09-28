@@ -12,7 +12,7 @@ public class TestInput {
         Scanner scanner = new Scanner(System.in);
         Pattern kToKpattern = Pattern.compile("\\s*\\d+\\s*-\\s*\\d+\\s*");
         Pattern first = Pattern.compile("\\d+(?=\\s*-{1})");
-        Pattern second = Pattern.compile("\\d+(?!\\s*-{1})");
+        Pattern second = Pattern.compile("\\d+$");
         scanner.useDelimiter("\n");
 
         while(scanner.hasNext()){
