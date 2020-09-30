@@ -19,4 +19,7 @@ lab-3/java-impl/*.iml
 lab-3/java-impl/out/*
 lab-3/java-impl/*.txt
 *.class
+*.png
+lab-3/java-impl/src/the-text.txt
+lab-3/java-impl/src/todo
 
