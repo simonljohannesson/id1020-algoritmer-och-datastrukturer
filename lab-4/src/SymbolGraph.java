@@ -3,9 +3,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class SymbolGraph {
-    HashTable<String, Integer> ht = new HashTable<>();
-    String[] keys;
-    UndirectedGraph graph;
+    private HashTable<String, Integer> ht = new HashTable<>();
+    private String[] keys;
+    private UndirectedGraph graph;
 
     /**
      * Builds graph by reading from file.
