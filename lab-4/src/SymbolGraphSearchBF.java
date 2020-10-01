@@ -7,23 +7,23 @@
  *  Usage:          Compile and use with API.
  *
  *  Dependencies:   SymbolGraph
- *  (own classes)   SearchDF
+ *  (own classes)   SearchBF
  *                  UndirectedGraph
  *                  NotInGraphException
  *                  LinkedList
  *
  *  Based on:       https://algs4.cs.princeton.edu/41graph/BreadthFirstPaths.java.html
  */
-public class SymbolGraphSearchDF {
-    SearchDF searchDF;
+public class SymbolGraphSearchBF {
+    SearchBF searchBF;
     SymbolGraph symbolGraph;
     String source;
 
-    SymbolGraphSearchDF(SymbolGraph symbolGraph, String vertex){
+    SymbolGraphSearchBF(SymbolGraph symbolGraph, String vertex){
         try {
             this.source = vertex;
             this.symbolGraph = symbolGraph;
-            searchDF = new SearchDF(symbolGraph.graph(), symbolGraph.indexOf(vertex));
+            searchBF = new SearchBF(symbolGraph.graph(), symbolGraph.indexOf(vertex));
 
         } catch (NotInGraphException e) {
             throw new IllegalArgumentException();
@@ -38,7 +38,7 @@ public class SymbolGraphSearchDF {
      */
     public boolean hasPath(String vertex){
         try{
-            return searchDF.hasPath(symbolGraph.indexOf(vertex));
+            return searchBF.hasPath(symbolGraph.indexOf(vertex));
         }catch(NotInGraphException e){
             throw new IllegalArgumentException();
         }
@@ -46,7 +46,7 @@ public class SymbolGraphSearchDF {
     public Iterable<String> pathTo(String vertex){
         try{
             LinkedList<String> path = new LinkedList<>();
-            for(int i : searchDF.pathTo(symbolGraph.indexOf(vertex))){
+            for(int i : searchBF.pathTo(symbolGraph.indexOf(vertex))){
                 path.append(symbolGraph.nameOf(i));
             }
             return path;
@@ -54,14 +54,15 @@ public class SymbolGraphSearchDF {
             throw new IllegalArgumentException();
         }
     }
+
     public static void main(String[] args){
         SymbolGraph sg = new SymbolGraph("database.txt", " ");
         UndirectedGraph g = sg.graph();
         System.out.println(g);
-        SymbolGraphSearchDF searchDF = new SymbolGraphSearchDF(sg, "CA");
+        SymbolGraphSearchBF searchBF = new SymbolGraphSearchBF(sg, "CA");
 
-        System.out.println("CA has path to : " + searchDF.hasPath("PA"));
-        for(String v : searchDF.pathTo("PA")){
+        System.out.println("CA has path to : " + searchBF.hasPath("PA"));
+        for(String v : searchBF.pathTo("PA")){
             System.out.print(v + " ");
         }
         System.out.println();

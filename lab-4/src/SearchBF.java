@@ -10,34 +10,47 @@
  *  (own classes)   LinkedList
  *
  *
- *  Based on:       https://algs4.cs.princeton.edu/41graph/DepthFirstPath.java.html
+ *  Based on:       https://algs4.cs.princeton.edu/41graph/BreadthFirstPath.java.html
  */
-public class SearchDF {
+public class SearchBF {
+    private final int INFINITY = Integer.MAX_VALUE;
     private boolean[] marked;
     private int[] edgeTo;
+    private int[] distTo;
     private final int source;
 
     /**
      * Determines all connected vertices from the source vertex.
      */
-    public SearchDF(UndirectedGraph graph, int sourceVertex){
+    public SearchBF(UndirectedGraph graph, int sourceVertex){
         source = sourceVertex;
         marked = new boolean[graph.vertices()];
         edgeTo = new int[graph.vertices()];
+        distTo = new int[graph.vertices()];
+        for(int i = 0; i < distTo.length; i++){
+            distTo[i] = INFINITY;
+        }
         validateVertex(sourceVertex);
-        markConnectedVertices(graph, sourceVertex);
+        markConnectedVerticesBF(graph, sourceVertex);
     }
-
     /**
      * Mark all connected vertices with true in list marked.
+     * Uses breadth first to traverse.
      */
-    private void markConnectedVertices(UndirectedGraph graph, int sourceVertex){
+    private void markConnectedVerticesBF(UndirectedGraph graph, int sourceVertex){
+        LinkedList<Integer> queue = new LinkedList<>();
+        distTo[sourceVertex] = 0;
         marked[sourceVertex] = true;
-        for(int adjacentVertex : graph.adjacent(sourceVertex)){
-            if(!marked[adjacentVertex]){
-                // mark from where adjacent vertex was accessed
-                edgeTo[adjacentVertex] = sourceVertex;
-                markConnectedVertices(graph, adjacentVertex);
+        queue.append(sourceVertex);
+        while(0 < queue.size()){
+            int v = queue.remove(0);
+            for(int w : graph.adjacent(v)){
+                if(!marked[w]){
+                    marked[w] = true;
+                    distTo[w] = distTo[v] + 1;
+                    edgeTo[w] = v;
+                    queue.append(w);
+                }
             }
         }
     }
@@ -49,13 +62,19 @@ public class SearchDF {
         return marked[vertex];
     }
     /**
-     * Returns path to vertex.
-     * Returns null if there is no path.
+     * Return distance to vertex.
+     */
+    public int distTo(int vertex){
+        validateVertex(vertex);
+        return distTo[vertex];
+    }
+    /**
+     * Returns shortest path between the source vertex and vertex.
      */
     public Iterable<Integer> pathTo(int vertex){
         validateVertex(vertex);
+        if(!hasPath(vertex)) return null;
         LinkedList<Integer> path = new LinkedList<>();
-        if(!marked[vertex]) return null;
         int x;
         for(x = vertex; x != source; x = edgeTo[x]){
             path.prepend(x);
@@ -73,16 +92,16 @@ public class SearchDF {
         SymbolGraph sg = new SymbolGraph("database-small.txt", " ");
         UndirectedGraph g = sg.graph();
         System.out.println(g);
-        SearchDF searchDF = new SearchDF(g, 0);
-        System.out.println(searchDF.hasPath(5));
+        SearchBF searchBF = new SearchBF(g, 0);
+        System.out.println(searchBF.hasPath(5));
         System.out.println("Path: ");
 
-        for(int i : searchDF.edgeTo){
+        for(int i : searchBF.edgeTo){
             System.out.print(i + " ");
         }
         System.out.println();
 
-        for (int p : searchDF.pathTo(5)){
+        for (int p : searchBF.pathTo(5)){
             System.out.print(p);
         }
         System.out.println();

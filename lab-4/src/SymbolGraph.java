@@ -15,6 +15,7 @@
  */
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class SymbolGraph {
@@ -100,18 +101,30 @@ public class SymbolGraph {
                 + " it must be between (inclusive) 0 and "
                 + (keys.length -1));
     }
-
     /**
      * Return graph associated with the symbol graph..
      */
     public UndirectedGraph graph(){
         return graph;
     }
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Vertices: " + graph.vertices() + " \nEdges: " + graph.edges() + "\n");
+        for (int i = 0; i < graph.vertices(); i++){
+            sb.append(keys[i]).append(" : ");
+            for(Integer edge : graph.adjacent(i)){
+                sb.append(keys[edge]).append(" ");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
     public static void main(String[] args){
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
         SymbolGraph sg = new SymbolGraph("database.txt", " ");
         System.out.println(sg.graph());
-
+        System.out.println(sg);
         System.out.println(sg.contains("LO"));
         System.out.println(sg.nameOf(5));
         try{
