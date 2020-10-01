@@ -22,7 +22,7 @@ public class SearchBF {
     /**
      * Determines all connected vertices from the source vertex.
      */
-    public SearchBF(UndirectedGraph graph, int sourceVertex){
+    public SearchBF(Graph graph, int sourceVertex){
         source = sourceVertex;
         marked = new boolean[graph.vertices()];
         edgeTo = new int[graph.vertices()];
@@ -37,7 +37,7 @@ public class SearchBF {
      * Mark all connected vertices with true in list marked.
      * Uses breadth first to traverse.
      */
-    private void markConnectedVerticesBF(UndirectedGraph graph, int sourceVertex){
+    private void markConnectedVerticesBF(Graph graph, int sourceVertex){
         LinkedList<Integer> queue = new LinkedList<>();
         distTo[sourceVertex] = 0;
         marked[sourceVertex] = true;
@@ -89,8 +89,8 @@ public class SearchBF {
                 + (marked.length -1));
     }
     public static void main(String[] args){
-        SymbolGraph sg = new SymbolGraph("database-small.txt", " ");
-        UndirectedGraph g = sg.graph();
+        SymbolGraphUndirected sg = new SymbolGraphUndirected("database-small.txt", " ");
+        Graph g = sg.graph();
         System.out.println(g);
         SearchBF searchBF = new SearchBF(g, 0);
         System.out.println(searchBF.hasPath(5));

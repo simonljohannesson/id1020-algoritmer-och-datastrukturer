@@ -17,7 +17,7 @@ public class Assignment_2 {
     public static void main(String[] args){
         String fileName = "database.txt";
         String delimiter = " ";
-        SymbolGraph sg = new SymbolGraph(fileName, delimiter);
+        SymbolGraphUndirected sg = new SymbolGraphUndirected(fileName, delimiter);
         System.out.println(sg);
 
         Scanner scanner = new Scanner(System.in);

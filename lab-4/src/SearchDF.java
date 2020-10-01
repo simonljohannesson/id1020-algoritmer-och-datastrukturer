@@ -20,7 +20,7 @@ public class SearchDF {
     /**
      * Determines all connected vertices from the source vertex.
      */
-    public SearchDF(UndirectedGraph graph, int sourceVertex){
+    public SearchDF(Graph graph, int sourceVertex){
         source = sourceVertex;
         marked = new boolean[graph.vertices()];
         edgeTo = new int[graph.vertices()];
@@ -31,7 +31,7 @@ public class SearchDF {
     /**
      * Mark all connected vertices with true in list marked.
      */
-    private void markConnectedVertices(UndirectedGraph graph, int sourceVertex){
+    private void markConnectedVertices(Graph graph, int sourceVertex){
         marked[sourceVertex] = true;
         for(int adjacentVertex : graph.adjacent(sourceVertex)){
             if(!marked[adjacentVertex]){
@@ -70,8 +70,8 @@ public class SearchDF {
                 + (marked.length -1));
     }
     public static void main(String[] args){
-        SymbolGraph sg = new SymbolGraph("database-small.txt", " ");
-        UndirectedGraph g = sg.graph();
+        SymbolGraphUndirected sg = new SymbolGraphUndirected("database-small.txt", " ");
+        Graph g = sg.graph();
         System.out.println(g);
         SearchDF searchDF = new SearchDF(g, 0);
         System.out.println(searchDF.hasPath(5));

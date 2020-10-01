@@ -56,8 +56,8 @@ public class SymbolGraphSearchBF {
     }
 
     public static void main(String[] args){
-        SymbolGraph sg = new SymbolGraph("database.txt", " ");
-        UndirectedGraph g = sg.graph();
+        SymbolGraphUndirected sg = new SymbolGraphUndirected("database.txt", " ");
+        Graph g = sg.graph();
         System.out.println(g);
         SymbolGraphSearchBF searchBF = new SymbolGraphSearchBF(sg, "CA");
 

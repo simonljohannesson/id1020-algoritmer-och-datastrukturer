@@ -11,7 +11,7 @@
  *
  *  Based on:       https://algs4.cs.princeton.edu/41graph/Graph.java.html
  */
-public class UndirectedGraph implements Graph{
+public class DirectedGraph implements Graph{
     private final int VERTICES;
     private int edges;
     private Bag<Integer>[] adj;
@@ -19,7 +19,7 @@ public class UndirectedGraph implements Graph{
     /**
      * Initialize an empty graph with V vertices and 0 edges.
      */
-    UndirectedGraph(int V){
+    DirectedGraph(int V){
         if(V < 0) throw new IllegalArgumentException();
         this.VERTICES = V;
         adj = (Bag<Integer>[]) new Bag[V];
@@ -40,7 +40,7 @@ public class UndirectedGraph implements Graph{
         validateVertex(w);
         edges++;
         adj[v].add(w);
-        adj[w].add(v);
+//        adj[w].add(v);
     }
     /**
      * Return vertices adjacent to vertex.
@@ -85,7 +85,7 @@ public class UndirectedGraph implements Graph{
         return sb.toString();
     }
     public static void main(String[] args){
-        UndirectedGraph g = new UndirectedGraph(10);
+        DirectedGraph g = new DirectedGraph(10);
         g.addEdge(0,9);
         System.out.println(g);
 
