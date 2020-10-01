@@ -1,3 +1,19 @@
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-10-01
+ *  Updated:
+ *  Solves problem: Lab 4
+ *  Usage:          Compile and use with API.
+ *
+ *  Dependencies:   SymbolGraph
+ *  (own classes)   SearchDF
+ *                  UndirectedGraph
+ *                  NotInGraphException
+ *                  LinkedList
+ *
+ *  Based on:       https://algs4.cs.princeton.edu/41graph/DepthFirstSearch.java.html
+ */
 public class SymbolGraphSearchDF {
     SearchDF searchDF;
     SymbolGraph symbolGraph;
@@ -50,4 +66,5 @@ public class SymbolGraphSearchDF {
         }
         System.out.println();
     }
+
 }

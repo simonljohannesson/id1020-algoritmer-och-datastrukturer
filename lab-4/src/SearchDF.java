@@ -1,3 +1,17 @@
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-10-01
+ *  Updated:
+ *  Solves problem: Lab 4
+ *  Usage:          Compile and use with API.
+ *
+ *  Dependencies:   UndirectedGraph
+ *  (own classes)   LinkedList
+ *
+ *
+ *  Based on:       https://algs4.cs.princeton.edu/41graph/DepthFirstSearch.java.html
+ */
 public class SearchDF {
     private boolean[] marked;
     private int[] edgeTo;

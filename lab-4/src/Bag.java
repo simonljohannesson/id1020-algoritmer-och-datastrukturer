@@ -1,3 +1,16 @@
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-10-01
+ *  Updated:
+ *  Solves problem: Lab 4
+ *  Usage:          Compile and use with API.
+ *
+ *  Dependencies:
+ *  (own classes)
+ *
+ *  Based on:       None.
+ */
 import java.util.Iterator;
 
 public class Bag<Type> implements Iterable<Type>{
@@ -30,21 +43,20 @@ public class Bag<Type> implements Iterable<Type>{
     }
     /**
      * Returns size of bag.
-     * @return
      */
     public int size(){
         return this.size;
     }
     @Override
     public Iterator<Type> iterator() {
-        return new Iterator(){
+        return new Iterator<Type>(){
             Node next = head;
             @Override
             public boolean hasNext() {
                 return next != null;
             }
             @Override
-            public Object next() {
+            public Type next() {
                 Type item = next.item;
                 this.next = next.next;
                 return item;

@@ -1,6 +1,16 @@
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-10-01
+ *  Updated:
+ *  Solves problem: Lab 4
+ *  Usage:          Compile and use with API.
+ *
+ *  Dependencies:   LinkedList
+ *  (own classes)
+ *
+ *  Based on:       https://algs4.cs.princeton.edu/34hash/
+ */
 public class HashTable<Key extends Comparable<Key>, Value> implements ST<Key, Value>{
     private static final int INIT_SIZE = 20;
     private LinkedList<Pair>[] list;

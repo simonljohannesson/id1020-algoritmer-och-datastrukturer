@@ -1,5 +1,16 @@
-import java.io.InputStream;
-
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-10-01
+ *  Updated:
+ *  Solves problem: Lab 4
+ *  Usage:          Compile and use with API.
+ *
+ *  Dependencies:   Bag
+ *  (own classes)
+ *
+ *  Based on:       https://algs4.cs.princeton.edu/41graph/Graph.java.html
+ */
 public class UndirectedGraph {
     private final int VERTICES;
     private int edges;

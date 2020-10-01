@@ -1,5 +1,17 @@
+/*
+ *  Author:         Simon Johannesson
+ *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
+ *  Created:        2020-10-01
+ *  Updated:
+ *  Solves problem: Lab 4
+ *  Usage:          Compile and use with API.
+ *
+ *  Dependencies:
+ *  (own classes)
+ *
+ *  Based on:       None.
+ */
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public class LinkedList<Type extends Comparable<Type>> implements List<Type>, Iterable<Type> {
     private Node sentinel;
