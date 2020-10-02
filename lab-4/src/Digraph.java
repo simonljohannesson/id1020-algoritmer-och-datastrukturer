@@ -11,20 +11,27 @@
  *
  *  Based on:
  */
-public interface Graph {
+public interface Digraph {
+    /**
+     * Return all edges in graph.
+     */
+    public Iterable<Edge> allEdges();
     /**
      * Add edge to graph.
      */
-    public abstract void addEdge(int v, int w);
+    public abstract void addEdge(Edge edge);
     /**
      * Return vertices adjacent to vertex.
      */
-    public Iterable<Integer> adjacent(int vertex);
+    public Iterable<Edge> adjacent(int vertex);
     /**
-     * Return degree of vertex.
+     * Return indegree of vertex.
      */
-    public int degree(int vertex);
-
+    public int indegree(int vertex);
+    /**
+     * Return out of vertex.
+     */
+    public int outdegree(int vertex);
     /**
      * Return number of edges in graph.
      */
