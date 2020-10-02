@@ -21,4 +21,8 @@ public class DirectedEdge implements Edge{
     public int to() {
         return to;
     }
+    @Override
+    public String toString(){
+        return from + " -" + weight + "- " + to;
+    }
 }

@@ -17,10 +17,10 @@ import java.util.Scanner;
  *
  *  Based on:       https://algs4.cs.princeton.edu/44sp/EdgeWeightedDigraph.java.html
  */
-public class EdgeWeightedDigraph implements Digraph{
+public class EdgeWeightedDigraph{
     private final int VERTICES;
     private int edges;
-    private Bag<Edge>[] adj;
+    private Bag<DirectedEdge>[] adj;
     private int[] indegree;
 
     /**
@@ -30,9 +30,9 @@ public class EdgeWeightedDigraph implements Digraph{
         if(V < 0) throw new IllegalArgumentException();
         this.VERTICES = V;
         this.indegree = new int[V];
-        adj = (Bag<Edge>[]) new Bag[V];
+        adj = (Bag<DirectedEdge>[]) new Bag[V];
         for(int i = 0; i < V; i++){
-            adj[i] = new Bag<Edge>();
+            adj[i] = new Bag<DirectedEdge>();
         }
     }
     /**
@@ -45,9 +45,9 @@ public class EdgeWeightedDigraph implements Digraph{
             VERTICES = scanner.nextInt();
             this.edges = scanner.nextInt();
             this.indegree = new int[VERTICES];
-            adj = (Bag<Edge>[]) new Bag[VERTICES];
+            adj = (Bag<DirectedEdge>[]) new Bag[VERTICES];
             for(int i = 0; i < VERTICES; i++){
-                adj[i] = new Bag<Edge>();
+                adj[i] = new Bag<DirectedEdge>();
             }
             while(scanner.hasNextLine()){
                 int v = scanner.nextInt();
@@ -62,8 +62,8 @@ public class EdgeWeightedDigraph implements Digraph{
             throw new InputMismatchException("File '" + fileName + "' is in incorrect format.");
         }
     }
-    @Override
-    public void addEdge(Edge edge) {
+//    @Override
+    public void addEdge(DirectedEdge edge) {
         int v = edge.from();
         int w = edge.to();
         validateVertex(v);
@@ -72,39 +72,39 @@ public class EdgeWeightedDigraph implements Digraph{
         indegree[w]++;
     }
 
-    @Override
-    public Iterable<Edge> adjacent(int vertex) {
+//    @Override
+    public Iterable<DirectedEdge> adjacent(int vertex) {
         validateVertex(vertex);
         return adj[vertex];
     }
 
-    @Override
+//    @Override
     public int indegree(int vertex) {
         validateVertex(vertex);
         return indegree[vertex];
     }
-    @Override
+//    @Override
     public int outdegree(int vertex) {
         validateVertex(vertex);
         return adj[vertex].size();
     }
-    @Override
+//    @Override
     public int edges() {
         return edges;
     }
 
-    @Override
-    public Iterable<Edge> allEdges() {
-        Bag<Edge> edges = new Bag<>();
+//    @Override
+    public Iterable<DirectedEdge> allEdges() {
+        Bag<DirectedEdge> edges = new Bag<>();
         for(int v = 0; v < VERTICES; v++){
-            for(Edge edge : adj[v]){
+            for(DirectedEdge edge : adj[v]){
                 edges.add(edge);
             }
         }
         return edges;
     }
 
-    @Override
+//    @Override
     public int vertices() {
         return VERTICES;
     }
