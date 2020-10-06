@@ -13,7 +13,7 @@
  */
 import java.util.Iterator;
 
-public class LinkedList<Type extends Comparable<Type>> implements List<Type>, Iterable<Type> { //TODO: using equals would be better
+public class LinkedList<Type> implements List<Type>, Iterable<Type> { //TODO: using equals would be better
     private Node sentinel;
     private int size;
 
@@ -77,7 +77,7 @@ public class LinkedList<Type extends Comparable<Type>> implements List<Type>, It
     public Type getMatching(Type item) throws NotInListException {
         Node node = sentinel.next;
         while(node != sentinel){
-            if(node.item.compareTo(item) == 0) return node.item; // TODO: equals would be better
+            if(node.item.equals(item)) return node.item;
             node = node.next;
         }
         throw new NotInListException();

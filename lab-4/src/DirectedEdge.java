@@ -1,4 +1,4 @@
-public class DirectedEdge implements Edge, Comparable<DirectedEdge>{
+public class DirectedEdge implements Edge{
     private int from, to, weight;
 
     public DirectedEdge(int from, int to, int weight){
@@ -30,11 +30,5 @@ public class DirectedEdge implements Edge, Comparable<DirectedEdge>{
     @Override
     public String toString(){
         return from + " " + to + ": " + weight;
-    }
-
-    @Override
-    public int compareTo(DirectedEdge edge) {
-        if(this.weight == edge.weight() && this.from == edge.from() && this.to == edge.to()) return 0;
-        else return -1;
     }
 }

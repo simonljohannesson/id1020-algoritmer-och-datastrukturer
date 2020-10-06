@@ -11,12 +11,8 @@
  *
  *  Based on:       https://algs4.cs.princeton.edu/34hash/
  */
-public class HashTable<Key extends Comparable<Key>, Value> implements ST<Key, Value>{
-    private static final int INIT_SIZE = 20;
-    private LinkedList<Pair>[] list;
-    private int M;
-    private int numKeys;
-    private class Pair implements Comparable<Pair>{
+public class HashTable<Key , Value> implements ST<Key, Value>{
+    private class Pair{
         Key key;
         Value value;
         Pair(Key key, Value value){
@@ -25,10 +21,17 @@ public class HashTable<Key extends Comparable<Key>, Value> implements ST<Key, Va
         }
 
         @Override
-        public int compareTo(Pair pair) {
-            return this.key.compareTo(pair.key);
+        public boolean equals(Object object) {
+            if(!(object instanceof HashTable.Pair)) return false;
+            Pair p = (Pair) object;
+            return  this.key.equals(p.key);
         }
     }
+    private static final int INIT_SIZE = 20;
+    private LinkedList<Pair>[] list;
+    private int M;
+    private int numKeys;
+
 
     public HashTable(){
         this(INIT_SIZE);
