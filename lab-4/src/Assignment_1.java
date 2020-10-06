@@ -6,7 +6,7 @@
  *  Solves problem: Lab 4, assignment 1.
  *  Usage:          Run and follow the instructions.
  *
- *  Dependencies:   SymbolGraph
+ *  Dependencies:   SymbolGraphUndirected
  *  (own classes)   SymbolGraphSearchDF
  *
  *  Based on:       None.

@@ -6,6 +6,9 @@ public class DirectedEdge implements Edge, Comparable<DirectedEdge>{
         this.to = to;
         this.weight = weight;
     }
+    public DirectedEdge(DirectedEdge edge){
+        this(edge.from(), edge.to(), edge.weight());
+    }
 
     @Override
     public int weight() {

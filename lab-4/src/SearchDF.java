@@ -8,6 +8,7 @@
  *
  *  Dependencies:   UndirectedGraph
  *  (own classes)   LinkedList
+ *                  Graph (Interface)
  *
  *
  *  Based on:       https://algs4.cs.princeton.edu/41graph/DepthFirstPath.java.html

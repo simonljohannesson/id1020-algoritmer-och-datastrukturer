@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.IllegalFormatException;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /*
@@ -49,7 +50,8 @@ public class EdgeWeightedDigraph{
             for(int i = 0; i < VERTICES; i++){
                 adj[i] = new Bag<DirectedEdge>();
             }
-            while(scanner.hasNextLine()){
+            while(scanner.hasNext()){
+
                 int v = scanner.nextInt();
                 int w = scanner.nextInt();
                 int weight = scanner.nextInt();
@@ -61,6 +63,29 @@ public class EdgeWeightedDigraph{
         }catch (InputMismatchException e){
             throw new InputMismatchException("File '" + fileName + "' is in incorrect format.");
         }
+    }
+    private EdgeWeightedDigraph(int vertices, int edges, Bag<DirectedEdge>[] adj, int[] indegree){
+        this.VERTICES = vertices;
+        this.edges = edges;
+        this.adj = adj;
+        this.indegree = indegree;
+    }
+    public EdgeWeightedDigraph copy(){
+        // copy adj
+        Bag<DirectedEdge>[] adj = new Bag[this.adj.length];
+
+        for(int i = 0; i < this.adj.length; i++){
+            adj[i] = new Bag<>();
+            for(DirectedEdge e : this.adj[i]){
+                adj[i].add(new DirectedEdge(e));
+            }
+        }
+        // copy indegree
+        int[] indegree = new int[this.indegree.length];
+        for(int i = 0; i < this.indegree.length; i++){
+            indegree[i] = this.indegree[i];
+        }
+        return new EdgeWeightedDigraph(this.VERTICES, this.edges, adj, indegree);
     }
 //    @Override
     public void addEdge(DirectedEdge edge) {

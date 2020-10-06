@@ -8,6 +8,7 @@
  *
  *  Dependencies:   SymbolGraph
  *  (own classes)   SymbolGraphSearchBF
+ *                  SymbolGraphDirected
  *
  *  Based on:       None.
  */

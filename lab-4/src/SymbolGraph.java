@@ -6,16 +6,13 @@
  *  Solves problem: Lab 4
  *  Usage:          Compile and use with API.
  *
- *  Dependencies:   UndirectedGraph
- *  (own classes)   HashTable
- *                  NotInSTException
-                    NotInGraphException
+ *  Dependencies:
+ *  (own classes)
+ *
+
  *
  *  Based on:       https://algs4.cs.princeton.edu/41graph/SymbolGraph.java.html
  */
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public interface SymbolGraph {
     /**

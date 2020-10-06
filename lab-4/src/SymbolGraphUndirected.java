@@ -9,7 +9,8 @@
  *  Dependencies:   UndirectedGraph
  *  (own classes)   HashTable
  *                  NotInSTException
-                    NotInGraphException
+ *                  NotInGraphException
+ *                  SymbolGraph (Interface)
  *
  *  Based on:       https://algs4.cs.princeton.edu/41graph/SymbolGraph.java.html
  */
@@ -120,7 +121,6 @@ public class SymbolGraphUndirected implements SymbolGraph{
         return sb.toString();
     }
     public static void main(String[] args){
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
         SymbolGraphUndirected sg = new SymbolGraphUndirected("database.txt", " ");
         System.out.println(sg.graph());
         System.out.println(sg);

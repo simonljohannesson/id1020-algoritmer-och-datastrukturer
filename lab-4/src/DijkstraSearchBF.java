@@ -1,5 +1,3 @@
-import java.io.FileNotFoundException;
-
 /*
  *  Author:         Simon Johannesson
  *  Email:          simonljohannesson@gmail.com, sijohann@kth.se
@@ -8,11 +6,15 @@ import java.io.FileNotFoundException;
  *  Solves problem: Lab 4
  *  Usage:          Compile and use with API.
  *
- *  Dependencies:
- *  (own classes)
+ *  Dependencies:   DirectedEdge
+ *  (own classes)   LinkedList
+ *                  EdgeWeightedDigraph
+ *                  IndexMinPQ (let's call it own)
  *
  *  Based on:       https://algs4.cs.princeton.edu/44sp/DijkstraSP.java.html
+ *                  https://en.wikipedia.org/wiki/Suurballe%27s_algorithm
  */
+import java.io.FileNotFoundException;
 public class DijkstraSearchBF {
     //TODO: implement a priority queue as a heap
     // class for use with the queue
@@ -70,15 +72,12 @@ public class DijkstraSearchBF {
             halfPath = new LinkedList<>();
             Iterable<DirectedEdge> firstPath = pathTo(to);
             int startDist = 0;
-            System.out.println("store path:");
             for(DirectedEdge e : firstPath){
                 this.halfPath.append(new DirectedEdge(e.from(), e.to(), e.weight()));
                 startDist += e.weight();
                 // set weight of first path of path to infinity
                 e.setWeight(INFINITY);
-                System.out.println(e);
             }
-            System.out.println("end store path");
             // do search from to vertex
             search(g, to, startDist);
         }
@@ -101,7 +100,7 @@ public class DijkstraSearchBF {
 
     private void search(EdgeWeightedDigraph g, int source, int startDistance){
         // check for negative weights
-        for (Edge e : g.allEdges()){
+        for (DirectedEdge e : g.allEdges()){
             if (e.weight() < 0) throw new IllegalArgumentException("Edge with egative weight detected.");
         }
         distTo = new int[g.vertices()];
@@ -207,7 +206,7 @@ public class DijkstraSearchBF {
                 System.out.println(e);
             }
 
-//            System.out.println(searchBF.hasPathTo(fd));
+            System.out.println(searchBF.hasPathTo(fd));
 //            System.out.println("Path from " + s + " to " + t);
 //            Iterable<DirectedEdge> iter;
 //            System.out.println("start");
